@@ -126,10 +126,44 @@ details[open] .faq-question::after{content:"－"}
 .article-content a.internal-link{color:#0055b3;font-weight:600;text-decoration:underline;text-decoration-color:#f49600;text-underline-offset:2px}
 .article-content a.internal-link:hover{color:#003d8a}
 
+/* === Search toggle button (in header) === */
+.search-toggle{background:none;border:none;cursor:pointer;padding:.5rem;color:#444;display:flex;align-items:center;border-radius:6px;transition:background .2s,color .2s}
+.search-toggle:hover{background:#f0f4ff;color:#0066cc}
+
+/* === Search overlay === */
+.search-overlay{display:none;position:fixed;inset:0;background:rgba(10,10,30,.6);z-index:500;align-items:flex-start;justify-content:center;padding-top:80px;backdrop-filter:blur(4px)}
+.search-overlay.active{display:flex}
+.search-box{background:#fff;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.2);width:100%;max-width:620px;padding:1.5rem;position:relative;margin:0 1rem}
+.search-close{position:absolute;top:.75rem;right:.75rem;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#999;line-height:1;padding:.25rem .5rem;border-radius:4px;transition:color .15s}
+.search-close:hover{color:#333}
+.search-input{width:100%;font-size:1.1rem;padding:.8rem 1rem;border:2px solid #e0e8f0;border-radius:8px;outline:none;font-family:inherit;color:#1a1a2e;transition:border-color .2s}
+.search-input:focus{border-color:#0066cc}
+.search-results{list-style:none;padding:0;margin:.75rem 0 0;max-height:360px;overflow-y:auto}
+.search-results li{border-bottom:1px solid #f0f4ff}
+.search-results li:last-child{border-bottom:none}
+.search-results li a{display:block;padding:.7rem .5rem;color:#1a1a2e;font-weight:600;font-size:.95rem;transition:color .15s}
+.search-results li a:hover{color:#0066cc}
+.search-results li span{display:block;font-size:.8rem;color:#777;margin-top:.1rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.search-noresult{padding:.75rem .5rem;color:#999;font-size:.9rem}
+
+/* === Scroll to top === */
+.scroll-top{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:44px;height:44px;border-radius:50%;background:#0066cc;color:#fff;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,102,204,.35);opacity:0;transition:opacity .3s,transform .2s;line-height:1;display:flex;align-items:center;justify-content:center}
+.scroll-top:hover{transform:translateY(-2px);background:#0055b3}
+
 /* === Utilities === */
 .text-center{text-align:center}
 .mt-2{margin-top:2rem}
 .mb-2{margin-bottom:2rem}
+
+/* === Brand cards (homepage) === */
+.brand-card{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:1.1rem .75rem;background:#fff;border:2px solid #e0e8f0;border-radius:12px;color:#1a1a2e;text-align:center;transition:border-color .2s,box-shadow .2s}
+.brand-card:hover{border-color:#0066cc;box-shadow:0 4px 16px rgba(0,102,204,.12);text-decoration:none}
+.brand-emoji{font-size:1.6rem}
+.brand-card strong{font-size:1rem;font-weight:700}
+.brand-pila{font-size:.78rem;color:#0066cc;font-family:monospace;font-weight:600;background:#f0f4ff;padding:.1rem .4rem;border-radius:4px}
+
+/* === Marca page === */
+.brand-intro{background:#f8faff;border-left:4px solid #f49600;border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1.5rem 0 2rem;color:#333;line-height:1.8}
 
 /* === WP Shortcode Replacements === */
 .info-box{background:#fff8f0;border:1px solid #f49600;border-radius:8px;padding:1.25rem;margin:1.5rem 0}

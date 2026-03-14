@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { generateWebSiteSchema, generateOrganizationSchema } from '../utils/seo';
+import { generateWebSiteSchema, generateOrganizationSchema, generateFAQSchema } from '../utils/seo';
 import { generateExcerpt, cleanWpContent } from '../utils/content';
 import postsData from '../data/posts.json';
 
@@ -22,7 +22,16 @@ const categories = categoryDefs.map(cat => ({
 })).sort((a, b) => b.count - a.count);
 
 const latestPosts = postsData.slice(0, 12);
-const schema = [generateWebSiteSchema(), generateOrganizationSchema()];
+
+const homeFAQSchema = generateFAQSchema([
+  { question: '¿Qué pila usa la llave de mi coche?', answer: 'La pila más habitual en llaves de coche es la CR2032 (3V). Audi, Volkswagen, Ford, Toyota y Nissan la usan en la mayoría de sus modelos. Renault y Mercedes suelen usar la CR2025. Consulta nuestra tabla de pilas por modelo para confirmar la tuya.' },
+  { question: '¿Cuánto dura la pila de la llave del coche?', answer: 'La pila de la llave del coche dura entre 2 y 4 años con uso normal. Sabrás que necesita cambio cuando el alcance del mando se reduce o el coche muestra el aviso "batería baja" en el cuadro de instrumentos.' },
+  { question: '¿Puedo cambiar la pila de la llave del coche yo mismo?', answer: 'Sí. Cambiar la pila de la llave del coche es muy sencillo y no requiere herramientas especiales ni visitar al concesionario. Solo necesitas la pila correcta (normalmente CR2032) y un destornillador plano o moneda para abrir la carcasa.' },
+  { question: '¿Qué pila es la CR2032?', answer: 'La CR2032 es una pila de botón de litio de 3V y 20mm de diámetro. Es la pila de llave de coche más usada en el mundo. También se usa en relojes, calculadoras y pequeños mandos a distancia. Tiene una capacidad de 210–230 mAh y dura entre 2 y 5 años según el uso.' },
+  { question: '¿Dónde comprar pilas CR2032?', answer: 'Las pilas CR2032 se venden en supermercados, ferreterías, tiendas de electrónica y online en Amazon.es. Marcas recomendadas: Panasonic, Energizer, Duracell o Renata. Evita las marcas sin sello de calidad, ya que pueden tener menor duración.' },
+]);
+
+const schema = [generateWebSiteSchema(), generateOrganizationSchema(), homeFAQSchema];
 ---
 
 <Base
@@ -44,6 +53,23 @@ const schema = [generateWebSiteSchema(), generateOrganizationSchema()];
         <a href={`/categoria/${cat.slug}`} class="cat-card">
           <h3>{cat.name}</h3>
           <p>{cat.count} artículos</p>
+        </a>
+      ))}
+    </div>
+
+    <!-- Brand quick-nav -->
+    <h2 class="mt-2" style="font-size:1.5rem;font-weight:700">Guías por marca de coche</h2>
+    <div class="brand-nav" style="margin:1rem 0 2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem">
+      {[
+        { slug: 'audi',       name: 'Audi',       pila: 'CR2032', emoji: '🚗' },
+        { slug: 'renault',    name: 'Renault',    pila: 'CR2025', emoji: '🚘' },
+        { slug: 'volkswagen', name: 'Volkswagen', pila: 'CR2032', emoji: '🚙' },
+        { slug: 'mercedes',   name: 'Mercedes',   pila: 'CR2025', emoji: '🚕' },
+      ].map((b) => (
+        <a href={`/marca/${b.slug}`} class="brand-card">
+          <span class="brand-emoji">{b.emoji}</span>
+          <strong>{b.name}</strong>
+          <span class="brand-pila">Pila {b.pila}</span>
         </a>
       ))}
     </div>

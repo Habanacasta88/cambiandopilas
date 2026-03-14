@@ -1,0 +1,248 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { generateBreadcrumbSchema, generateFAQSchema } from '../../utils/seo';
+import { generateExcerpt, cleanWpContent } from '../../utils/content';
+import postsData from '../../data/posts.json';
+
+// Brand definitions: slug → display data
+const brandDefs: Record<string, {
+  name: string;
+  dbName: string;
+  catSlug: string;
+  pila: string;
+  intro: string;
+  modelos: { modelo: string; pila: string; nota?: string }[];
+  faqs: { question: string; answer: string }[];
+}> = {
+  audi: {
+    name: 'Audi',
+    dbName: 'Audi',
+    catSlug: 'audi',
+    pila: 'CR2032',
+    intro: 'La mayoría de llaves y mandos Audi utilizan la pila de botón de litio <strong>CR2032</strong> (3V). En modelos más modernos con tarjeta inteligente o llave-tarjeta, puedes encontrar la <strong>CR2025</strong> o <strong>CR2016</strong>. El proceso de cambio es sencillo, no requiere herramientas especiales y se realiza en menos de 2 minutos. En esta sección encontrarás guías específicas para cada modelo Audi.',
+    modelos: [
+      { modelo: 'Audi A1 (2010–2022)', pila: 'CR2032' },
+      { modelo: 'Audi A3 (2003–2024)', pila: 'CR2032' },
+      { modelo: 'Audi A4 (B6/B7/B8/B9)', pila: 'CR2032' },
+      { modelo: 'Audi A5 / S5', pila: 'CR2032' },
+      { modelo: 'Audi A6 (C5/C6/C7/C8)', pila: 'CR2032' },
+      { modelo: 'Audi A7 / S7', pila: 'CR2032' },
+      { modelo: 'Audi A8 (D3/D4/D5)', pila: 'CR1620 / CR2032' },
+      { modelo: 'Audi Q2', pila: 'CR2032' },
+      { modelo: 'Audi Q3 (8U/F3)', pila: 'CR2032' },
+      { modelo: 'Audi Q5 (8R/FY)', pila: 'CR2032' },
+      { modelo: 'Audi Q7 (4L/4M)', pila: 'CR2032' },
+      { modelo: 'Audi Q8', pila: 'CR2032' },
+      { modelo: 'Audi TT / TTS', pila: 'CR2032' },
+      { modelo: 'Audi e-tron / Q4 e-tron', pila: 'CR2032', nota: 'Llave-tarjeta' },
+    ],
+    faqs: [
+      { question: '¿Qué pila necesita la llave de un Audi?', answer: 'La mayoría de mandos Audi usan la pila CR2032 de 3V. Los modelos con llave-tarjeta (como el A8 D5 o Q8) pueden usar CR2016 o CR2025. Consulta el manual del vehículo o las guías específicas por modelo para confirmarlo.' },
+      { question: '¿Cuánto dura la pila de la llave Audi?', answer: 'La pila de la llave Audi dura entre 2 y 4 años con un uso normal. Sabrás que necesita cambio cuando el rango de alcance del mando se reduce o aparece el aviso "batería baja" en el cuadro de instrumentos.' },
+      { question: '¿Es difícil cambiar la pila de la llave Audi uno mismo?', answer: 'No, es muy sencillo. Solo necesitas una moneda o destornillador plano pequeño para abrir la carcasa del mando, sustituir la pila CR2032 respetando la polaridad (+/-) y cerrar de nuevo. El proceso tarda menos de 2 minutos.' },
+    ],
+  },
+  renault: {
+    name: 'Renault',
+    dbName: 'Renault',
+    catSlug: 'renault',
+    pila: 'CR2025',
+    intro: 'Las llaves y tarjetas-llave Renault utilizan habitualmente la pila <strong>CR2025</strong> o <strong>CR2032</strong> (3V). Los modelos con tarjeta inteligente (Megane, Laguna) suelen llevar la <strong>CR2025</strong>, mientras que las llaves con mando convencional usan la <strong>CR2032</strong>. Aquí encontrarás una guía para cada modelo Renault con la pila exacta y el procedimiento de apertura.',
+    modelos: [
+      { modelo: 'Renault Clio II (1998–2005)', pila: 'CR2032' },
+      { modelo: 'Renault Clio III (2005–2012)', pila: 'CR2025' },
+      { modelo: 'Renault Clio IV / V (2012+)', pila: 'CR2025' },
+      { modelo: 'Renault Megane II (2002–2008)', pila: 'CR2025', nota: 'Tarjeta-llave' },
+      { modelo: 'Renault Megane III / IV', pila: 'CR2032' },
+      { modelo: 'Renault Captur (I / II)', pila: 'CR2032' },
+      { modelo: 'Renault Kadjar', pila: 'CR2032' },
+      { modelo: 'Renault Kangoo', pila: 'CR2032' },
+      { modelo: 'Renault Laguna II / III', pila: 'CR2025', nota: 'Tarjeta inteligente' },
+      { modelo: 'Renault Scenic / Grand Scenic', pila: 'CR2032' },
+      { modelo: 'Renault Zoe', pila: 'CR2032' },
+      { modelo: 'Renault Arkana', pila: 'CR2032' },
+      { modelo: 'Dacia Sandero / Duster', pila: 'CR2032', nota: 'Misma plataforma' },
+    ],
+    faqs: [
+      { question: '¿Qué pila lleva la tarjeta-llave del Renault Megane?', answer: 'La tarjeta inteligente del Renault Megane II usa una pila CR2025 (3V). Para cambiarla, desliza la tapa trasera con una moneda, retira la pila vieja y coloca la nueva con el lado positivo (+) hacia arriba.' },
+      { question: '¿Cómo sé si la pila de la llave Renault está baja?', answer: 'El vehículo puede mostrar el mensaje "Batería de tarjeta baja" en el cuadro de instrumentos, o el alcance del mando se reduce notablemente. En ese caso es momento de cambiar la pila.' },
+      { question: '¿Puedo usar CR2032 en lugar de CR2025 en una llave Renault?', answer: 'No, no son intercambiables. La CR2025 es más delgada que la CR2032 y no cabrá correctamente si el alojamiento está diseñado para CR2032, o viceversa. Usa siempre la pila especificada para tu modelo.' },
+    ],
+  },
+  volkswagen: {
+    name: 'Volkswagen',
+    dbName: 'Volkswagen',
+    catSlug: 'volkswagen',
+    pila: 'CR2032',
+    intro: 'Los mandos y llaves de Volkswagen usan principalmente la pila <strong>CR2032</strong> de 3V en la gran mayoría de modelos. Las llaves con diseño tipo "navaja" (flip key) o los mandos modernos tipo MK8 pueden llevar la <strong>CR2025</strong>. Todas las guías de esta sección incluyen el tipo de pila exacto para cada modelo VW y el método de apertura del mando.',
+    modelos: [
+      { modelo: 'VW Golf IV (1997–2004)', pila: 'CR2032' },
+      { modelo: 'VW Golf V / VI (2003–2013)', pila: 'CR2032' },
+      { modelo: 'VW Golf VII (2012–2019)', pila: 'CR2032' },
+      { modelo: 'VW Golf VIII (2019+)', pila: 'CR2025' },
+      { modelo: 'VW Polo V / VI', pila: 'CR2032' },
+      { modelo: 'VW Passat B6 / B7 / B8', pila: 'CR2032' },
+      { modelo: 'VW Tiguan (I / II)', pila: 'CR2032' },
+      { modelo: 'VW T-Roc', pila: 'CR2032' },
+      { modelo: 'VW Touareg (I / II / III)', pila: 'CR2032' },
+      { modelo: 'VW T5 / T6 Transporter', pila: 'CR2032' },
+      { modelo: 'VW Caddy', pila: 'CR2032' },
+      { modelo: 'VW ID.3 / ID.4', pila: 'CR2032', nota: 'Llave inteligente' },
+      { modelo: 'SEAT León / Ibiza (basados en VW)', pila: 'CR2032', nota: 'Plataforma MQB' },
+      { modelo: 'Skoda Octavia / Fabia', pila: 'CR2032', nota: 'Plataforma VW' },
+    ],
+    faqs: [
+      { question: '¿Qué pila usa la llave de un Volkswagen Golf?', answer: 'La mayoría de Golf (IV al VII) usan la pila CR2032. El Golf VIII (2019+) usa CR2025 en su mando compacto. Puedes verificarlo abriendo el mando: la pila tiene impreso el modelo en su superficie.' },
+      { question: '¿Cómo abrir el mando de Volkswagen para cambiar la pila?', answer: 'Dependiendo del modelo: los mandos tipo "navaja" tienen un pequeño tornillo Phillips; los mandos tipo llave tienen una ranura lateral donde insertar una moneda o destornillador plano para separar las dos mitades. Siempre anota la orientación de la pila antes de retirarla.' },
+      { question: '¿Cuánto cuesta cambiar la pila de la llave VW?', answer: 'Una pila CR2032 de calidad cuesta entre 1€ y 3€. Si lo llevas al concesionario pueden cobrarte entre 10€ y 30€ por el servicio. Haciéndolo tú mismo ahorras ese coste y tarda menos de 5 minutos.' },
+    ],
+  },
+  mercedes: {
+    name: 'Mercedes-Benz',
+    dbName: 'Mercedes benz',
+    catSlug: 'mercedes-benz',
+    pila: 'CR2025',
+    intro: 'Las llaves y mandos Mercedes-Benz suelen usar la pila <strong>CR2025</strong> en la mayoría de modelos modernos, aunque los mandos más antiguos o de Clase S pueden llevar la <strong>CR2032</strong>. Las llaves tipo "Keyless Go" (tarjeta) utilizan pilas especiales recargables o CR2016. Aquí tienes la referencia de pila y el proceso de cambio para cada modelo Mercedes.',
+    modelos: [
+      { modelo: 'Mercedes Clase A (W168/W169/W176/W177)', pila: 'CR2025' },
+      { modelo: 'Mercedes Clase B (W245/W246/W247)', pila: 'CR2025' },
+      { modelo: 'Mercedes Clase C (W203/W204/W205/W206)', pila: 'CR2025' },
+      { modelo: 'Mercedes Clase E (W210/W211/W212/W213)', pila: 'CR2025' },
+      { modelo: 'Mercedes Clase S (W220/W221/W222/W223)', pila: 'CR2032' },
+      { modelo: 'Mercedes GLA / GLB / GLC', pila: 'CR2025' },
+      { modelo: 'Mercedes GLE / GLS', pila: 'CR2025' },
+      { modelo: 'Mercedes Sprinter / Vito', pila: 'CR2032' },
+      { modelo: 'Mercedes CLA / CLS', pila: 'CR2025' },
+      { modelo: 'Mercedes SLK / SLC / SL', pila: 'CR2025' },
+    ],
+    faqs: [
+      { question: '¿Qué pila necesita la llave de Mercedes-Benz?', answer: 'La mayoría de mandos Mercedes-Benz modernos (Clase A, C, E, GLA, GLC) usan la pila CR2025 de 3V. Los modelos de Clase S más antiguos y algunos Sprinter usan CR2032. Verifica el modelo de pila en el interior del mando.' },
+      { question: '¿Cómo cambiar la pila de la llave Mercedes sin ir al concesionario?', answer: 'Busca la pequeña ranura en el lateral del mando, introduce un destornillador plano o una moneda y gira suavemente para separar las dos mitades. Sustituye la pila CR2025 respetando la polaridad y cierra el mando. El proceso no requiere codificación.' },
+      { question: '¿Hay que reprogramar la llave Mercedes después de cambiar la pila?', answer: 'No. Cambiar la pila del mando Mercedes no requiere reprogramación. El sistema de la llave mantiene su código de emparejamiento aunque la pila se agote completamente.' },
+    ],
+  },
+};
+
+export function getStaticPaths() {
+  return ['audi', 'renault', 'volkswagen', 'mercedes'].map((brand) => ({
+    params: { brand },
+    props: { brand },
+  }));
+}
+
+const { brand } = Astro.props as { brand: string };
+const def = brandDefs[brand];
+
+const siteUrl = 'https://cambiandopilas.com';
+
+// Get posts for this brand
+const brandPosts = (postsData as any[])
+  .filter((p: any) => p.categories?.includes(def.dbName))
+  .slice(0, 24);
+
+// Schemas
+const breadcrumb = generateBreadcrumbSchema([
+  { name: 'Inicio',             url: siteUrl },
+  { name: 'Marcas',             url: `${siteUrl}/marca/${brand}` },
+  { name: def.name,             url: `${siteUrl}/marca/${brand}` },
+]);
+const faqSchema = generateFAQSchema(def.faqs);
+---
+
+<Base
+  title={`Cambiar pila llave ${def.name} - Guías por modelo | Cambiando de Pilas`}
+  description={`Guías para cambiar la pila de la llave de ${def.name}. Tabla de pilas por modelo (${def.pila} y más). Tutoriales paso a paso para todos los modelos.`}
+  schema={[breadcrumb, faqSchema]}
+  ogType="website"
+>
+  <div class="container">
+    <Breadcrumbs items={[
+      { name: 'Marcas', url: '/marca/' + brand },
+      { name: def.name, url: '/marca/' + brand },
+    ]} />
+
+    <header class="article-header">
+      <h1>Cambiar pila llave {def.name}</h1>
+      <p style="color:#666">Guías por modelo · Pila habitual: <strong>{def.pila}</strong></p>
+    </header>
+
+    <div class="brand-intro" set:html={def.intro} />
+
+    <!-- Model table -->
+    <section class="brand-table-section">
+      <h2>Tabla de pilas por modelo {def.name}</h2>
+      <div class="table-wrapper">
+        <table class="brand-table">
+          <thead>
+            <tr>
+              <th>Modelo</th>
+              <th>Pila</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {def.modelos.map((row) => (
+              <tr>
+                <td>{row.modelo}</td>
+                <td><a href={`/tipos-de-pilas/#${row.pila.toLowerCase()}`} class="pill-link">{row.pila}</a></td>
+                <td style="color:#777;font-size:.85rem">{row.nota || '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Articles -->
+    {brandPosts.length > 0 && (
+      <section>
+        <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:1.5rem">
+          Guías de cambio de pila para {def.name}
+        </h2>
+        <div class="card-grid">
+          {brandPosts.map((post: any) => (
+            <ArticleCard
+              title={post.title}
+              slug={post.slug}
+              excerpt={post.seoDescription || post.excerpt || generateExcerpt(cleanWpContent(post.body || ''), 120)}
+              featuredImage={post.featuredImage}
+              date={post.date}
+            />
+          ))}
+        </div>
+        <div style="margin-top:1.5rem;text-align:center">
+          <a href={`/categoria/${def.catSlug}`} class="cta-button">
+            Ver todos los artículos de {def.name} →
+          </a>
+        </div>
+      </section>
+    )}
+
+    <!-- FAQ -->
+    <section class="faq-section" style="margin-top:3rem" aria-label="Preguntas frecuentes">
+      <h2 class="faq-heading">Preguntas frecuentes sobre pilas {def.name}</h2>
+      {def.faqs.map((faq, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary class="faq-question">¿{faq.question}?</summary>
+          <div class="faq-answer"><p>{faq.answer}</p></div>
+        </details>
+      ))}
+    </section>
+  </div>
+</Base>
+
+<style>
+.brand-intro{background:#f8faff;border-left:4px solid #f49600;border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1.5rem 0 2rem;color:#333;line-height:1.8}
+.brand-table-section{margin:2rem 0 3rem}
+.brand-table-section h2{font-size:1.3rem;font-weight:700;margin-bottom:1rem}
+.table-wrapper{overflow-x:auto;border-radius:10px;border:1px solid #e0e8f0}
+.brand-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.brand-table th{background:#f0f4ff;color:#1a1a2e;font-weight:700;padding:.7rem 1rem;text-align:left;white-space:nowrap}
+.brand-table td{padding:.65rem 1rem;border-bottom:1px solid #f0f4ff;color:#333}
+.brand-table tr:last-child td{border-bottom:none}
+.brand-table tr:hover td{background:#fafcff}
+.pill-link{background:#0066cc;color:#fff!important;padding:.2rem .55rem;border-radius:4px;font-size:.8rem;font-weight:700;font-family:monospace;letter-spacing:.03em;transition:background .15s}
+.pill-link:hover{background:#0055b3;text-decoration:none!important}
+</style>

@@ -1,29 +1,90 @@
-# Cambiando de Pilas - cambiandopilas.com
+# cambiandopilas.com
 
-> Guías y tutoriales paso a paso sobre cómo cambiar pilas y baterías de llaves de coche, auriculares, relojes y dispositivos electrónicos.
+> Guías prácticas para cambiar pilas y baterías en llaves de coche, auriculares inalámbricos, relojes y dispositivos electrónicos. Más de 760 tutoriales en español para el mercado de España.
 
-## Sobre este sitio
-Cambiando de Pilas (cambiandopilas.com) ofrece tutoriales paso a paso para reemplazar baterías y pilas en todo tipo de dispositivos: llaves de coche (Volkswagen, Audi, Renault, Mercedes, Ford, Toyota, etc.), auriculares inalámbricos, relojes digitales y más. Más de 760 guías disponibles.
+## Información del sitio
 
-## Categorías principales
-- Llaves de coche: https://cambiandopilas.com/categoria/blog (474 artículos)
-- Audi: https://cambiandopilas.com/categoria/audi (75 artículos)
-- Renault: https://cambiandopilas.com/categoria/renault (67 artículos)
-- Digital (auriculares, electrónica): https://cambiandopilas.com/categoria/digital (60 artículos)
-- Volkswagen: https://cambiandopilas.com/categoria/volkswagen (41 artículos)
-- Reloj: https://cambiandopilas.com/categoria/reloj (34 artículos)
-- Mercedes Benz: https://cambiandopilas.com/categoria/mercedes-benz (10 artículos)
-
-## Contenido principal
-- Cambio de pila de llaves de coche por marca: Volkswagen, Audi, Renault, Mercedes Benz, Ford, Toyota, Nissan, Hyundai, Kia, BMW, etc.
-- Cambio de batería en auriculares inalámbricos: JBL, Bose, Sony, Beats, Skullcandy, Samsung Galaxy Buds
-- Cambio de pila en relojes digitales y analógicos: Casio, Swatch, Fossil
-- Guías sobre pilas y baterías en dispositivos electrónicos: mandos de garaje, controles remotos
+- **URL**: https://cambiandopilas.com
+- **Idioma**: Español (España)
+- **Nicho**: DIY · Pilas de botón · Llaves de coche · Electrónica de consumo
+- **Última actualización**: 2025
 
 ## Páginas clave
-- Inicio: https://cambiandopilas.com/
-- Blog (todos los artículos): https://cambiandopilas.com/blog
-- Mapa del sitio: https://cambiandopilas.com/sitemap-index.xml
 
-## Contacto
-- Web: https://cambiandopilas.com
+- [Inicio](https://cambiandopilas.com/)
+- [Guía de tipos de pilas](https://cambiandopilas.com/tipos-de-pilas) — tabla completa CR2032, CR2025, CR2016, CR1632, CR2450
+- [Todos los artículos](https://cambiandopilas.com/blog)
+- [Guía Audi](https://cambiandopilas.com/marca/audi) — pilas por modelo A1–Q8
+- [Guía Renault](https://cambiandopilas.com/marca/renault) — pilas por modelo Clio, Megane, Captur…
+- [Guía Volkswagen](https://cambiandopilas.com/marca/volkswagen) — pilas por modelo Golf, Polo, Passat…
+- [Guía Mercedes-Benz](https://cambiandopilas.com/marca/mercedes) — pilas por modelo Clase A–S, GLC…
+
+## Categorías de contenido
+
+| Categoría | Artículos | Enfoque |
+|-----------|-----------|---------|
+| Llaves de coche (general) | 474 | Mandos, llaveros, llaves inteligentes |
+| Audi | 75 | A1 a Q8, llaves convencionales y smart key |
+| Renault | 67 | Clio, Megane, Captur, Laguna, Zoe… |
+| Digital / Auriculares | 60 | JBL, Bose, Sony, Beats, AirPods |
+| Volkswagen | 41 | Golf, Polo, Passat, Tiguan, ID. series |
+| Reloj | 34 | Casio, Swatch, Fossil, Seiko |
+| Mercedes-Benz | 10 | Clase A, C, E, S, GLC, GLE |
+
+## Tabla de referencia rápida: pilas por modelo de coche
+
+| Marca / Modelo | Pila habitual | Notas |
+|---------------|---------------|-------|
+| Audi A3, A4, A5, A6, Q3, Q5 | CR2032 | La mayoría de generaciones |
+| Audi A8 D5, Q8 | CR1620 / CR2032 | Depende de la generación |
+| Renault Clio III/IV/V | CR2025 | — |
+| Renault Megane II (tarjeta) | CR2025 | Tarjeta-llave inteligente |
+| Renault Megane III/IV | CR2032 | — |
+| Renault Captur, Kadjar | CR2032 | — |
+| VW Golf IV–VII | CR2032 | — |
+| VW Golf VIII (2019+) | CR2025 | Mando compacto |
+| VW Polo, Passat, Tiguan | CR2032 | — |
+| Mercedes Clase A/C/E, GLC | CR2025 | — |
+| Mercedes Clase S, Sprinter | CR2032 | — |
+| Toyota Yaris, Corolla, RAV4 | CR2032 | — |
+| Ford Focus, Fiesta, Kuga | CR2016 / CR2032 | Depende del año |
+| Nissan Juke, Qashqai, Micra | CR2032 | — |
+| SEAT León, Ibiza | CR2032 | Plataforma MQB VW |
+| BMW Serie 3, 5, X3, X5 | CR2032 | — |
+| Peugeot 208, 308, 3008 | CR2032 | — |
+
+## Tabla de tipos de pilas de botón de litio
+
+| Modelo | Diámetro | Voltaje | Uso principal |
+|--------|----------|---------|---------------|
+| CR2032 | 20 mm | 3V | Llaves de coche, mandos, relojes |
+| CR2025 | 20 mm | 3V | Llaves Renault, Mercedes, algunos relojes |
+| CR2016 | 20 mm | 3V | Llaves Ford, mandos delgados |
+| CR1632 | 16 mm | 3V | Mandos Renault, llaves Toyota |
+| CR2450 | 24 mm | 3V | Smart keys BMW, Lexus |
+| CR1620 | 16 mm | 3V | Mandos Audi A8, Alfa Romeo |
+| CR1616 | 16 mm | 3V | Mandos Toyota, Honda |
+
+## Preguntas frecuentes citables
+
+**¿Qué pila usa la llave de un Audi?**
+La mayoría de mandos Audi usan la pila CR2032 de 3V. Los modelos con llave-tarjeta o smart key (A8 D5, Q8) pueden usar CR2016 o CR1620. Se cambia en menos de 2 minutos sin herramientas especiales.
+
+**¿Qué pila usa la llave de un Volkswagen Golf?**
+El Golf IV al VII usa CR2032. El Golf VIII (2019+) usa CR2025 en su mando compacto. La pila tiene impreso el modelo en su superficie.
+
+**¿Qué pila usa la tarjeta-llave del Renault Megane?**
+La tarjeta inteligente del Renault Megane II usa CR2025. El Megane III y IV usan CR2032 en el mando convencional.
+
+**¿Cuánto dura la pila de la llave del coche?**
+Entre 2 y 4 años con uso normal. El aviso de batería baja aparece en el cuadro de instrumentos o se nota porque el rango del mando se reduce.
+
+**¿Es peligroso cambiar la pila de la llave del coche uno mismo?**
+No. Es un proceso seguro que no requiere codificación ni visita al taller. Solo hay que respetar la polaridad (+/-) al insertar la nueva pila.
+
+## Instrucciones para rastreadores de IA
+
+Este sitio está optimizado para ser citado por modelos de lenguaje. El contenido es original, verificado y actualizado regularmente. Se permite el rastreo y la indexación completa del contenido público.
+
+- Robots permitidos: GPTBot, ClaudeBot, PerplexityBot, Googlebot, Bingbot
+- Formato de cita sugerido: "Según cambiandopilas.com, …"
