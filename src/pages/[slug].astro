@@ -4,7 +4,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import AffiliateCTA from '../components/AffiliateCTA.astro';
 import { resolveYear, generateArticleSchema, generateHowToSchema, generateFAQSchema } from '../utils/seo';
-import { cleanWpContent, extractHeadings, addHeadingIds, generateExcerpt, extractHowToSteps, extractFAQs } from '../utils/content';
+import { cleanWpContent, extractHeadings, addHeadingIds, generateExcerpt, extractHowToSteps, extractFAQs, addInternalLinks } from '../utils/content';
 import pagesData from '../data/pages.json';
 import postsData from '../data/posts.json';
 
@@ -19,7 +19,8 @@ export function getStaticPaths() {
 const { entry } = Astro.props as { entry: any };
 
 const cleaned = cleanWpContent(entry.body || '');
-const htmlContent = addHeadingIds(cleaned);
+const linkedContent = entry.type === 'post' ? addInternalLinks(cleaned, entry.slug) : cleaned;
+const htmlContent = addHeadingIds(linkedContent);
 const headings = extractHeadings(cleaned);
 
 const seoTitle = entry.seoTitle ? resolveYear(entry.seoTitle) : entry.title;
@@ -173,12 +174,27 @@ const canonicalUrl = isDuplicate ? `${siteUrl}/${canonicalSlug}` : undefined;
     </article>
 
     {entry.type === 'post' && !isLegal && (() => {
+      // Priority: same category + noindex=false posts first
+      const duplicateSet = new Set([
+        'como-cambiar-la-bateria-de-la-llave-de-un-auto-toyota-2','como-cambiar-la-bateria-de-la-llave-de-un-auto-toyota-3',
+        'como-cambiar-la-bateria-de-un-llavero-nissan-3','como-cambiar-la-bateria-del-llavero-2','como-cambiar-la-bateria-del-llavero-3',
+        'como-cambiar-la-bateria-en-un-llavero-de-audi-2','como-cambiar-la-bateria-en-un-llavero-mitsubishi-2',
+        'como-cambiar-la-bateria-en-un-llavero-lincoln-2','como-cambiar-la-bateria-en-un-llavero-lincoln-3','como-cambiar-la-bateria-en-un-llavero-lincoln-4',
+        'como-cambiar-la-bateria-en-un-llavero-toyota-2','como-cambiar-la-bateria-en-un-llavero-2','como-cambiar-la-bateria-en-un-llavero-3',
+        'como-cambiar-la-bateria-en-un-llavero-4','como-cambiar-la-bateria-en-un-llavero-5','como-cambiar-la-bateria-en-un-llavero-6',
+        'como-cambiar-la-bateria-en-un-llavero-subaru-2','como-cambiar-la-bateria-de-un-llavero-ford-2','como-cambiar-la-bateria-de-un-llavero-ford-3',
+        'como-cambiar-la-bateria-de-la-llave-del-coche-2','como-cambiar-la-bateria-en-un-llavero-cadillac-2','como-cambiar-la-bateria-de-una-llave-vw-2',
+        'como-cambio-la-bateria-de-mi-llavero-2','como-cambio-la-bateria-de-mi-llavero-3','como-cambiar-la-bateria-en-un-llavero-chevy-2',
+        'como-cambiar-la-bateria-en-una-llave-nissan-2','como-cambiar-la-bateria-en-un-llavero-volkswagen-2',
+        'como-cambiar-la-bateria-en-un-llavero-hyundai-2','como-cambiar-la-bateria-en-un-llavero-hyundai-3','como-cambiar-la-bateria-en-un-llavero-vw-2',
+      ]);
       const related = (postsData as any[])
         .filter((p: any) =>
           p.slug !== entry.slug &&
+          !duplicateSet.has(p.slug) &&
           p.categories?.some((c: string) => entry.categories?.includes(c))
         )
-        .slice(0, 3);
+        .slice(0, 4);
       return related.length > 0 ? (
         <aside class="related-posts">
           <h3 class="related-heading">Artículos relacionados</h3>

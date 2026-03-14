@@ -130,8 +130,27 @@ export function extractFAQs(html: string): { question: string; answer: string }[
   return faqs;
 }
 
-/** Generate a short excerpt from HTML — picks the first meaningful sentence */
+/** Generate a short excerpt from HTML — picks the first meaningful paragraph */
 export function generateExcerpt(html: string, maxLength = 160): string {
+  // Try to extract text from the first <p> that has enough content
+  const pMatches = html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi);
+  for (const m of pMatches) {
+    const text = m[1]
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    // Skip very short paragraphs (less than 40 chars) — likely noise
+    if (text.length >= 40) {
+      if (text.length <= maxLength) return text;
+      const truncated = text.substring(0, maxLength);
+      const lastPeriod = truncated.lastIndexOf('.');
+      if (lastPeriod > maxLength * 0.4) return truncated.substring(0, lastPeriod + 1);
+      return truncated.replace(/\s+\S*$/, '') + '…';
+    }
+  }
+
+  // Fallback: strip all HTML and take first N chars
   const text = html
     .replace(/<[^>]+>/g, '')
     .replace(/&nbsp;/g, ' ')
@@ -140,14 +159,77 @@ export function generateExcerpt(html: string, maxLength = 160): string {
 
   if (!text) return '';
   if (text.length <= maxLength) return text;
-
-  // Try to end on a complete sentence within maxLength
   const truncated = text.substring(0, maxLength);
   const lastPeriod = truncated.lastIndexOf('.');
-  if (lastPeriod > maxLength * 0.4) {
-    return truncated.substring(0, lastPeriod + 1);
+  if (lastPeriod > maxLength * 0.4) return truncated.substring(0, lastPeriod + 1);
+  return truncated.replace(/\s+\S*$/, '') + '…';
+}
+
+/**
+ * Add automatic internal links to first mentions of key terms in the HTML.
+ * - Battery types → /tipos-de-pilas/ (with anchor)
+ * - Car brands → their category page
+ * Only links the FIRST occurrence per term, never inside existing <a> or headings.
+ * Pass currentSlug to avoid linking to the page's own category.
+ */
+export function addInternalLinks(html: string, currentSlug: string): string {
+  // Terms to auto-link: [regex to match text, url, link text to use]
+  const linkTargets: { pattern: RegExp; url: string }[] = [
+    // Battery types → tipos-de-pilas guide
+    { pattern: /\bCR2032\b/i,  url: '/tipos-de-pilas/#cr2032' },
+    { pattern: /\bCR2025\b/i,  url: '/tipos-de-pilas/#cr2025' },
+    { pattern: /\bCR2016\b/i,  url: '/tipos-de-pilas/#cr2016' },
+    { pattern: /\bCR1632\b/i,  url: '/tipos-de-pilas/#cr1632' },
+    { pattern: /\bCR2450\b/i,  url: '/tipos-de-pilas/#cr2450' },
+    { pattern: /\bCR1616\b/i,  url: '/tipos-de-pilas/#cr1616' },
+    // Brand categories — only link if not already on that brand's page
+    ...(!currentSlug.includes('audi')        ? [{ pattern: /\bAudi\b/i,        url: '/categoria/audi/' }]         : []),
+    ...(!currentSlug.includes('renault')     ? [{ pattern: /\bRenault\b/i,     url: '/categoria/renault/' }]      : []),
+    ...(!currentSlug.includes('volkswagen') && !currentSlug.includes('-vw-')
+        ? [{ pattern: /\bVolkswagen\b/i,     url: '/categoria/volkswagen/' }]  : []),
+    ...(!currentSlug.includes('mercedes')    ? [{ pattern: /\bMercedes\b/i,    url: '/categoria/mercedes-benz/' }]: []),
+  ];
+
+  let result = html;
+
+  for (const { pattern, url } of linkTargets) {
+    // We replace only the FIRST match that is:
+    // 1. Inside a <p> tag text (not headings, not existing links, not attrs)
+    // We do this by splitting on existing <a> tags to avoid double-linking
+    let linked = false;
+    result = result.replace(
+      // Match paragraphs and replace only first occurrence of the term
+      /<p([^>]*)>([\s\S]*?)<\/p>/gi,
+      (fullP, attrs, inner) => {
+        if (linked) return fullP;
+        // Skip if term doesn't appear in this paragraph
+        if (!pattern.test(inner)) return fullP;
+        // Skip if term is already inside an anchor in this paragraph
+        const innerWithoutLinks = inner.replace(/<a[^>]*>[\s\S]*?<\/a>/gi, '___LINK___');
+        if (!pattern.test(innerWithoutLinks)) return fullP;
+
+        // Replace first occurrence in this paragraph (outside existing links)
+        let replaced = false;
+        const newInner = inner.replace(
+          // Split by <a> tags, replace in non-link segments only
+          /(<a[^>]*>[\s\S]*?<\/a>)|([^<]+)/gi,
+          (chunk, linkChunk, textChunk) => {
+            if (linkChunk) return linkChunk; // already a link, skip
+            if (replaced || !textChunk) return chunk;
+            if (pattern.test(textChunk)) {
+              replaced = true;
+              return textChunk.replace(pattern, (match) => {
+                return `<a href="${url}" class="internal-link">${match}</a>`;
+              });
+            }
+            return chunk;
+          }
+        );
+        if (replaced) linked = true;
+        return `<p${attrs}>${newInner}</p>`;
+      }
+    );
   }
 
-  // Fallback: cut at last word boundary
-  return truncated.replace(/\s+\S*$/, '') + '…';
+  return result;
 }

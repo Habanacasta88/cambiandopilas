@@ -113,12 +113,18 @@ details[open] .faq-question::after{content:"－"}
 .faq-answer p{margin:0}
 
 /* === Related Posts === */
-.related-posts{background:#f8faff;border:1px solid #e0e8f0;border-radius:12px;padding:1.25rem 1.5rem;margin:2rem 0 3rem}
-.related-heading{font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:.75rem}
-.related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem}
-.related-list a{font-size:.9rem;color:#0066cc;text-decoration:none;display:flex;align-items:center;gap:.4rem}
-.related-list a::before{content:"→";color:#f49600;flex-shrink:0}
-.related-list a:hover{text-decoration:underline}
+.related-posts{background:#f8faff;border:2px solid #e0e8f0;border-radius:12px;padding:1.5rem;margin:2.5rem 0 3rem}
+.related-heading{font-size:1.05rem;font-weight:700;color:#1a1a2e;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.related-heading::before{content:"📖";font-size:1.1rem}
+.related-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr;gap:.6rem}
+@media(min-width:600px){.related-list{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}}
+.related-list a{font-size:.9rem;color:#0055b3;text-decoration:none;background:#fff;border:1px solid #dde8f5;border-radius:8px;padding:.6rem .9rem;display:flex;align-items:center;gap:.5rem;transition:border-color .15s,box-shadow .15s}
+.related-list a::before{content:"→";color:#f49600;flex-shrink:0;font-weight:700}
+.related-list a:hover{border-color:#0055b3;box-shadow:0 2px 8px rgba(0,85,179,.1);text-decoration:none}
+
+/* === Internal auto-links === */
+.article-content a.internal-link{color:#0055b3;font-weight:600;text-decoration:underline;text-decoration-color:#f49600;text-underline-offset:2px}
+.article-content a.internal-link:hover{color:#003d8a}
 
 /* === Utilities === */
 .text-center{text-align:center}
