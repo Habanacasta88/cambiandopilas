@@ -98,7 +98,17 @@ const duplicateSlugs = new Set([
   'como-cambiar-la-bateria-en-un-llavero-hyundai-3',
   'como-cambiar-la-bateria-en-un-llavero-vw-2',
 ]);
+// Posts about brands not sold in Spain — noindex to avoid diluting ES authority
+const lowTrafficSlugs = new Set([
+  'como-reemplazar-la-bateria-en-el-llavero-de-chevy',
+  'como-cambiar-la-bateria-en-un-llavero-chevy',
+  'como-cambiar-la-bateria-en-un-llavero-lincoln',
+  'como-cambiar-la-bateria-en-un-llavero-cadillac',
+  'como-cambiar-la-bateria-de-una-llave-holden',
+]);
+
 const isDuplicate = duplicateSlugs.has(entry.slug);
+const isLowTraffic = lowTrafficSlugs.has(entry.slug);
 const canonicalSlug = isDuplicate ? entry.slug.replace(/-\d+$/, '') : entry.slug;
 const canonicalUrl = isDuplicate ? `${siteUrl}/${canonicalSlug}` : undefined;
 ---
@@ -109,7 +119,7 @@ const canonicalUrl = isDuplicate ? `${siteUrl}/${canonicalSlug}` : undefined;
   ogImage={entry.featuredImage}
   schema={schemas}
   ogType={entry.type === 'post' ? 'article' : 'website'}
-  noindex={isDuplicate}
+  noindex={isDuplicate || isLowTraffic}
   canonicalUrl={canonicalUrl}
 >
   <div class="container">

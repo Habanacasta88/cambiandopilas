@@ -20,6 +20,13 @@ export function cleanWpContent(html: string): string {
     .replace(/\s*style="[^"]*mso-[^"]*"/g, '')
     // Remove empty spans
     .replace(/<span>\s*<\/span>/g, '')
+    // Remove migration artifacts (tixagb_XX codes from WP export)
+    .replace(/\(tixagb_\d+[_\d]*\)/g, '')
+    .replace(/tixagb_\d+[_\d]*/g, '')
+    // Unwrap <p> inside <li> (keep text, remove the extra p tags)
+    .replace(/<li([^>]*)>\s*<p[^>]*>([\s\S]*?)<\/p>\s*<\/li>/gi, '<li$1>$2</li>')
+    // Remove empty <li> items (with only whitespace or &nbsp;)
+    .replace(/<li[^>]*>\s*(&nbsp;)?\s*<\/li>/gi, '')
     // Fix non-secure image URLs
     .replace(/src="http:\/\//g, 'src="https://')
     // Add lazy loading to YouTube iframes
