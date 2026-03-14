@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { generateWebSiteSchema } from '../utils/seo';
+import { generateExcerpt, cleanWpContent } from '../utils/content';
+import postsData from '../data/posts.json';
+
+const categories = [
+  { name: 'Llaves de coche', slug: 'blog', count: 474 },
+  { name: 'Audi', slug: 'audi', count: 75 },
+  { name: 'Renault', slug: 'renault', count: 67 },
+  { name: 'Digital', slug: 'digital', count: 60 },
+  { name: 'Volkswagen', slug: 'volkswagen', count: 41 },
+  { name: 'Reloj', slug: 'reloj', count: 34 },
+  { name: 'Mercedes Benz', slug: 'mercedes-benz', count: 10 },
+];
+
+const latestPosts = postsData.slice(0, 12);
+const schema = generateWebSiteSchema();
+---
+
+<Base
+  title="Cambiando de Pilas - Guías para cambiar pilas y baterías"
+  description="Tutoriales paso a paso para cambiar la pila de la llave de tu coche, auriculares, relojes y dispositivos electrónicos. Volkswagen, Audi, Renault, Mercedes y más."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container">
+      <h1>Cambiando de Pilas</h1>
+      <p>Tutoriales paso a paso para cambiar la pila de la llave de tu coche, auriculares inalámbricos, relojes y más.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <h2 class="mt-2" style="font-size:1.5rem;font-weight:700">Categorías</h2>
+    <div class="card-grid" style="padding-top:1rem">
+      {categories.map((cat) => (
+        <a href={`/categoria/${cat.slug}`} class="cat-card">
+          <h3>{cat.name}</h3>
+          <p>{cat.count} artículos</p>
+        </a>
+      ))}
+    </div>
+
+    <h2 class="mt-2" style="font-size:1.5rem;font-weight:700">Últimos artículos</h2>
+    <div class="card-grid">
+      {latestPosts.map((post: any) => (
+        <ArticleCard
+          title={post.title}
+          slug={post.slug}
+          excerpt={post.seoDescription || post.excerpt || generateExcerpt(cleanWpContent(post.body || ''), 120)}
+          featuredImage={post.featuredImage}
+          date={post.date}
+        />
+      ))}
+    </div>
+
+    <div class="text-center mt-2 mb-2">
+      <a href="/blog" class="cta-button">Ver todos los artículos</a>
+    </div>
+  </div>
+</Base>

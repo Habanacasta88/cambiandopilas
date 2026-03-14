@@ -1,0 +1,126 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  schema?: object | object[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Guías y tutoriales sobre cómo cambiar pilas y baterías de llaves de coche, auriculares, relojes y dispositivos electrónicos.',
+  ogImage,
+  canonicalUrl,
+  schema,
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = 'https://cambiandopilas.com';
+const fullCanonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={fullCanonical} />
+  {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={fullCanonical} />
+  <meta property="og:site_name" content="Cambiando de Pilas" />
+  <meta property="og:locale" content="es_ES" />
+  {ogImage && <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : siteUrl + ogImage} />}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Fonts (non-blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+  <!-- Schema.org -->
+  {schemas.map((s) => (
+    <script type="application/ld+json" set:html={JSON.stringify(s)} />
+  ))}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="site-logo">
+        <span>Cambiando de Pilas</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Abrir menú" id="navToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="/">Inicio</a>
+        <a href="/categoria/blog">Llaves de coche</a>
+        <a href="/categoria/audi">Audi</a>
+        <a href="/categoria/renault">Renault</a>
+        <a href="/categoria/volkswagen">Volkswagen</a>
+        <a href="/categoria/digital">Digital</a>
+        <a href="/categoria/reloj">Reloj</a>
+        <a href="/blog">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Categorías</h4>
+          <a href="/categoria/blog">Llaves de coche</a>
+          <a href="/categoria/audi">Audi</a>
+          <a href="/categoria/renault">Renault</a>
+          <a href="/categoria/volkswagen">Volkswagen</a>
+          <a href="/categoria/mercedes-benz">Mercedes Benz</a>
+          <a href="/categoria/digital">Digital</a>
+          <a href="/categoria/reloj">Reloj</a>
+        </div>
+        <div class="footer-col">
+          <h4>Información</h4>
+          <a href="/blog">Todos los artículos</a>
+          <a href="/politica-de-privacidad">Política de privacidad</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} cambiandopilas.com — Guías para cambiar pilas y baterías.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('mainNav')?.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
