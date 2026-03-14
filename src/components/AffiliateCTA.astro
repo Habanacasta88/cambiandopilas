@@ -1,0 +1,59 @@
+---
+/**
+ * AffiliateCTA — muestra un banner para comprar la pila recomendada.
+ * Detecta el tipo de pila mencionado en el título del artículo.
+ */
+interface Props {
+  title: string;
+  categories?: string[];
+}
+const { title, categories = [] } = Astro.props;
+
+// Map keywords in title → battery type + Amazon search query
+const batteryMap: { keywords: RegExp; type: string; query: string; voltage: string }[] = [
+  { keywords: /cr2032|2032/i, type: 'CR2032', query: 'pila+cr2032', voltage: '3V' },
+  { keywords: /cr2025|2025/i, type: 'CR2025', query: 'pila+cr2025', voltage: '3V' },
+  { keywords: /cr2016|2016/i, type: 'CR2016', query: 'pila+cr2016', voltage: '3V' },
+  { keywords: /cr1616|1616/i, type: 'CR1616', query: 'pila+cr1616', voltage: '3V' },
+  { keywords: /cr1632|1632/i, type: 'CR1632', query: 'pila+cr1632', voltage: '3V' },
+  { keywords: /cr2450|2450/i, type: 'CR2450', query: 'pila+cr2450', voltage: '3V' },
+  { keywords: /audi/i,        type: 'CR2032', query: 'pila+cr2032+llave+audi', voltage: '3V' },
+  { keywords: /renault/i,     type: 'CR2032', query: 'pila+cr2032+llave+renault', voltage: '3V' },
+  { keywords: /volkswagen|vw/i, type: 'CR2032', query: 'pila+cr2032+llave+volkswagen', voltage: '3V' },
+  { keywords: /mercedes/i,    type: 'CR2025', query: 'pila+cr2025+llave+mercedes', voltage: '3V' },
+  { keywords: /toyota/i,      type: 'CR2032', query: 'pila+cr2032+llave+toyota', voltage: '3V' },
+  { keywords: /ford/i,        type: 'CR2032', query: 'pila+cr2032+llave+ford', voltage: '3V' },
+  { keywords: /nissan/i,      type: 'CR2032', query: 'pila+cr2032+llave+nissan', voltage: '3V' },
+  { keywords: /hyundai/i,     type: 'CR2032', query: 'pila+cr2032+llave+hyundai', voltage: '3V' },
+  { keywords: /seat|leon/i,   type: 'CR2032', query: 'pila+cr2032+llave+seat', voltage: '3V' },
+  { keywords: /reloj|casio|swatch/i, type: 'CR2032', query: 'pila+para+reloj', voltage: '3V' },
+  { keywords: /mando|garaje/i, type: 'GP23A', query: 'pila+mando+garaje+a23', voltage: '12V' },
+];
+
+const titleLower = title.toLowerCase();
+const match = batteryMap.find(b => b.keywords.test(titleLower));
+
+// Default fallback for llaveros in general
+const battery = match || { type: 'CR2032', query: 'pila+cr2032+llave+coche', voltage: '3V' };
+const amazonUrl = `https://www.amazon.es/s?k=${battery.query}&tag=enjoys0d-21`;
+---
+
+<aside class="affiliate-cta" aria-label="Dónde comprar la pila">
+  <div class="affiliate-inner">
+    <div class="affiliate-icon">🔋</div>
+    <div class="affiliate-text">
+      <strong>¿Necesitas la pila {battery.type} ({battery.voltage})?</strong>
+      <span>Encuéntrala en Amazon · Entrega rápida</span>
+    </div>
+    <a
+      href={amazonUrl}
+      target="_blank"
+      rel="noopener noreferrer sponsored"
+      class="affiliate-btn"
+      aria-label={`Comprar pila ${battery.type} en Amazon`}
+    >
+      Ver en Amazon →
+    </a>
+  </div>
+  <p class="affiliate-disclaimer">* Enlace de afiliado. Sin coste adicional para ti.</p>
+</aside>

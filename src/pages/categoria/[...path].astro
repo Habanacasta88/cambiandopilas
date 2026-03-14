@@ -1,0 +1,139 @@
+---
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { generateExcerpt, cleanWpContent } from '../../utils/content';
+import postsData from '../../data/posts.json';
+
+export function getStaticPaths() {
+  const perPage = 24;
+  const catMap: Record<string, string> = {
+    'blog': 'Blog',
+    'audi': 'Audi',
+    'renault': 'Renault',
+    'volkswagen': 'Volkswagen',
+    'mercedes-benz': 'Mercedes benz',
+    'digital': 'Digital',
+    'reloj': 'Reloj',
+  };
+
+  const paths: any[] = [];
+
+  for (const slug of Object.keys(catMap)) {
+    const catName = catMap[slug];
+    const catPosts = (postsData as any[]).filter(
+      (post: any) => post.categories && post.categories.includes(catName)
+    );
+    const totalPages = Math.ceil(catPosts.length / perPage);
+
+    // /categoria/slug (page 1)
+    paths.push({
+      params: { path: slug },
+      props: { slug, currentPage: 1, totalPages },
+    });
+
+    // /categoria/slug/2, /categoria/slug/3, etc.
+    for (let i = 2; i <= totalPages; i++) {
+      paths.push({
+        params: { path: `${slug}/${i}` },
+        props: { slug, currentPage: i, totalPages },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const POSTS_PER_PAGE = 24;
+
+const categoryMap: Record<string, string> = {
+  'blog': 'Blog',
+  'audi': 'Audi',
+  'renault': 'Renault',
+  'volkswagen': 'Volkswagen',
+  'mercedes-benz': 'Mercedes benz',
+  'digital': 'Digital',
+  'reloj': 'Reloj',
+};
+
+const categoryLabels: Record<string, string> = {
+  'blog': 'Llaves de coche',
+  'audi': 'Audi',
+  'renault': 'Renault',
+  'volkswagen': 'Volkswagen',
+  'mercedes-benz': 'Mercedes Benz',
+  'digital': 'Digital',
+  'reloj': 'Reloj',
+};
+
+// SEO descriptions for each category (shown as intro on page 1)
+const categoryDescriptions: Record<string, string> = {
+  'blog': 'Guías paso a paso para cambiar la pila de la llave de tu coche. Cubre todos los modelos y marcas: llave de mando, llave de fob y llave inteligente. La pila más habitual es la <a href="/tipos-de-pilas"><strong>CR2032</strong></a>.',
+  'audi': 'Tutoriales específicos para cambiar la pila de la llave de Audi. Cubre los modelos A1, A3, A4, A5, A6, Q3, Q5, Q7 y más. La mayoría de llaves Audi usan pila <a href="/tipos-de-pilas"><strong>CR2032</strong></a>.',
+  'renault': 'Guías de cambio de pila para llaves Renault: Clio, Megane, Captur, Kadjar, Kangoo, Zoe y más. Las llaves Renault suelen usar pila <a href="/tipos-de-pilas"><strong>CR2025</strong></a> o CR2032.',
+  'volkswagen': 'Cómo cambiar la pila de la llave de Volkswagen: Golf, Polo, Passat, Tiguan, T-Roc, Touareg y más. Las llaves VW usan principalmente pila <a href="/tipos-de-pilas"><strong>CR2032</strong></a>.',
+  'mercedes-benz': 'Guías para cambiar la pila de la llave Mercedes-Benz: Clase A, Clase C, Clase E, GLC, GLA y más. Las llaves Mercedes usan habitualmente pila <a href="/tipos-de-pilas"><strong>CR2025</strong></a>.',
+  'digital': 'Tutoriales para cambiar la batería de auriculares inalámbricos (JBL, Bose, Sony, Beats, Skullcandy) y otros dispositivos electrónicos.',
+  'reloj': 'Guías para cambiar la pila de relojes digitales y analógicos: Casio, Swatch, Fossil, Seiko y otros. Incluye pilas de botón de litio y óxido de plata.',
+};
+
+const { slug, currentPage, totalPages } = Astro.props;
+const catName = categoryMap[slug!] || slug;
+const catLabel = categoryLabels[slug!] || slug;
+
+const allCatPosts = (postsData as any[]).filter(
+  (post: any) => post.categories && post.categories.includes(catName)
+);
+const start = (currentPage - 1) * POSTS_PER_PAGE;
+const paginatedPosts = allCatPosts.slice(start, start + POSTS_PER_PAGE);
+
+const prevUrl = currentPage > 1 ? (currentPage === 2 ? `/categoria/${slug}` : `/categoria/${slug}/${currentPage - 1}`) : undefined;
+const nextUrl = currentPage < totalPages ? `/categoria/${slug}/${currentPage + 1}` : undefined;
+---
+
+<Base
+  title={`${catLabel}${currentPage > 1 ? ` - Página ${currentPage}` : ''} - Cambiando de Pilas`}
+  description={`Guías sobre cómo cambiar la pila y batería en ${catLabel.toLowerCase()}. ${allCatPosts.length} artículos disponibles.`}
+  prevUrl={prevUrl}
+  nextUrl={nextUrl}
+>
+  <div class="container">
+    <Breadcrumbs items={[
+      { name: 'Categorías', url: '/' },
+      { name: catLabel, url: `/categoria/${slug}` },
+    ]} />
+
+    <header class="article-header">
+      <h1>{catLabel}</h1>
+      <p style="color:#666">{allCatPosts.length} artículos en esta categoría</p>
+    </header>
+
+    {currentPage === 1 && categoryDescriptions[slug!] && (
+      <div class="category-intro" set:html={categoryDescriptions[slug!]} />
+    )}
+
+    <div class="card-grid">
+      {paginatedPosts.map((post: any) => (
+        <ArticleCard
+          title={post.title}
+          slug={post.slug}
+          excerpt={post.seoDescription || post.excerpt || generateExcerpt(cleanWpContent(post.body || ''), 120)}
+          featuredImage={post.featuredImage}
+          date={post.date}
+        />
+      ))}
+    </div>
+
+    {totalPages > 1 && (
+      <nav class="pagination" aria-label="Paginación">
+        {currentPage > 1 && (
+          <a href={currentPage === 2 ? `/categoria/${slug}` : `/categoria/${slug}/${currentPage - 1}`} class="pagination-btn">&laquo; Anterior</a>
+        )}
+        <span class="pagination-info">Página {currentPage} de {totalPages}</span>
+        {currentPage < totalPages && (
+          <a href={`/categoria/${slug}/${currentPage + 1}`} class="pagination-btn">Siguiente &raquo;</a>
+        )}
+      </nav>
+    )}
+  </div>
+</Base>

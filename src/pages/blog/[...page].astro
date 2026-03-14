@@ -33,11 +33,16 @@ export function getStaticPaths() {
 const { currentPage, totalPages: tp } = Astro.props;
 const start = (currentPage - 1) * POSTS_PER_PAGE;
 const paginatedPosts = postsData.slice(start, start + POSTS_PER_PAGE);
+
+const prevUrl = currentPage > 1 ? (currentPage === 2 ? '/blog' : `/blog/${currentPage - 1}`) : undefined;
+const nextUrl = currentPage < tp ? `/blog/${currentPage + 1}` : undefined;
 ---
 
 <Base
   title={`Blog${currentPage > 1 ? ` - Página ${currentPage}` : ''} - Cambiando de Pilas`}
   description="Todos los artículos sobre cómo cambiar pilas y baterías de llaves de coche, auriculares, relojes y dispositivos electrónicos."
+  prevUrl={prevUrl}
+  nextUrl={nextUrl}
 >
   <div class="container">
     <Breadcrumbs items={[{ name: 'Blog', url: '/blog' }]} />

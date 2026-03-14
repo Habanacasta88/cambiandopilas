@@ -1,0 +1,178 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { generateFAQSchema } from '../utils/seo';
+
+const siteUrl = 'https://cambiandopilas.com';
+
+const batteries = [
+  {
+    type: 'CR2032',
+    voltage: '3V',
+    diameter: '20mm',
+    height: '3.2mm',
+    capacity: '220 mAh',
+    uso: 'La más común. Llaves de coche (VW, Audi, Toyota, Ford, Seat), mandos de garaje, relojes, calculadoras.',
+    coches: ['Volkswagen', 'Audi', 'Toyota', 'Ford', 'Seat', 'Nissan', 'Hyundai', 'Kia', 'BMW', 'Citroën'],
+    amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21',
+  },
+  {
+    type: 'CR2025',
+    voltage: '3V',
+    diameter: '20mm',
+    height: '2.5mm',
+    capacity: '160 mAh',
+    uso: 'Llaves de Renault, Mercedes, algunos relojes y mandos.',
+    coches: ['Renault', 'Mercedes-Benz', 'Citroën', 'Peugeot'],
+    amazon: 'https://www.amazon.es/s?k=pila+cr2025&tag=enjoys0d-21',
+  },
+  {
+    type: 'CR2016',
+    voltage: '3V',
+    diameter: '20mm',
+    height: '1.6mm',
+    capacity: '90 mAh',
+    uso: 'Llaves delgadas de Honda, algunos Toyota y relojes finos.',
+    coches: ['Honda', 'Toyota (modelos antiguos)', 'Mazda'],
+    amazon: 'https://www.amazon.es/s?k=pila+cr2016&tag=enjoys0d-21',
+  },
+  {
+    type: 'CR1616',
+    voltage: '3V',
+    diameter: '16mm',
+    height: '1.6mm',
+    capacity: '50 mAh',
+    uso: 'Llaves compactas de Toyota, Lexus y controles remotos pequeños.',
+    coches: ['Toyota', 'Lexus', 'Daihatsu'],
+    amazon: 'https://www.amazon.es/s?k=pila+cr1616&tag=enjoys0d-21',
+  },
+  {
+    type: 'CR1632',
+    voltage: '3V',
+    diameter: '16mm',
+    height: '3.2mm',
+    capacity: '140 mAh',
+    uso: 'Llaves de algunos modelos de Kia, Subaru y Hyundai.',
+    coches: ['Kia', 'Subaru', 'Hyundai (algunos modelos)'],
+    amazon: 'https://www.amazon.es/s?k=pila+cr1632&tag=enjoys0d-21',
+  },
+  {
+    type: 'CR2450',
+    voltage: '3V',
+    diameter: '24.5mm',
+    height: '5mm',
+    capacity: '620 mAh',
+    uso: 'Llaves avanzadas con pantalla o funciones extra (Volvo, BMW i-key).',
+    coches: ['Volvo', 'BMW (algunos)'],
+    amazon: 'https://www.amazon.es/s?k=pila+cr2450&tag=enjoys0d-21',
+  },
+];
+
+const faqs = [
+  { question: 'Cómo sé qué pila necesita la llave de mi coche', answer: 'Abre la carcasa de la llave (normalmente con una moneda o botón de apertura) y verás el número impreso en la pila actual. Los más habituales son CR2032, CR2025 o CR2016. También puedes consultar el manual del vehículo.' },
+  { question: 'Son todas las pilas de botón intercambiables', answer: 'No. Aunque muchas tienen el mismo voltaje (3V), difieren en diámetro y grosor. Usar una pila de tamaño incorrecto puede dañar el compartimento o no hacer contacto eléctrico.' },
+  { question: 'Cuánto dura una pila de llave de coche', answer: 'Entre 1 y 3 años dependiendo del uso. Si tienes que apretar el botón varias veces para que funcione, o el coche no detecta la llave de fob, es señal de que necesita cambio.' },
+  { question: 'Dónde puedo comprar estas pilas', answer: 'En cualquier ferretería, supermercado, tienda de electrónica o en Amazon. Las CR2032 son las más fáciles de encontrar.' },
+];
+
+const faqSchema = generateFAQSchema(faqs);
+const tableSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Table',
+  about: 'Tipos de pilas de botón para llaves de coche',
+};
+---
+
+<Base
+  title="Tipos de Pilas para Llaves de Coche - Guía Completa CR2032, CR2025, CR2016"
+  description="Guía completa de todos los tipos de pilas de botón para llaves de coche: CR2032, CR2025, CR2016, CR1616, CR1632 y CR2450. Qué coche usa cada pila y dónde comprarlas."
+  schema={[faqSchema]}
+>
+  <div class="container">
+    <Breadcrumbs items={[
+      { name: 'Guía de Pilas', url: '/tipos-de-pilas' },
+    ]} />
+
+    <header class="article-header">
+      <h1>Tipos de Pilas para Llaves de Coche</h1>
+      <p class="page-subtitle">Guía completa: CR2032, CR2025, CR2016 y más — qué pila necesita cada modelo</p>
+    </header>
+
+    <div class="intro-box">
+      <p>Las llaves de coche modernas usan <strong>pilas de litio tipo botón</strong> de 3 voltios. Existen varios tamaños y el más indicado para tu llave depende de la marca y modelo del vehículo. A continuación encontrarás la tabla completa con las especificaciones de cada tipo.</p>
+    </div>
+
+    <h2 style="font-size:1.4rem;font-weight:800;margin:2rem 0 1rem">Tabla comparativa de pilas de botón</h2>
+
+    <div class="battery-table-wrap">
+      <table class="battery-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Voltaje</th>
+            <th>Diámetro</th>
+            <th>Grosor</th>
+            <th>Capacidad</th>
+            <th>Usos principales</th>
+          </tr>
+        </thead>
+        <tbody>
+          {batteries.map(b => (
+            <tr>
+              <td><strong><a href={b.amazon} target="_blank" rel="noopener noreferrer sponsored">{b.type}</a></strong></td>
+              <td>{b.voltage}</td>
+              <td>{b.diameter}</td>
+              <td>{b.height}</td>
+              <td>{b.capacity}</td>
+              <td style="font-size:.85rem">{b.uso}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 style="font-size:1.4rem;font-weight:800;margin:2.5rem 0 1rem">Qué pila necesita cada marca de coche</h2>
+
+    <div class="brand-grid">
+      {batteries.filter(b => b.coches.length > 0).map(b => (
+        <div class="brand-card">
+          <div class="brand-type">
+            <a href={b.amazon} target="_blank" rel="noopener noreferrer sponsored" class="battery-badge">{b.type}</a>
+          </div>
+          <ul class="brand-list">
+            {b.coches.map(c => <li>{c}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <h2 style="font-size:1.4rem;font-weight:800;margin:2.5rem 0 1rem">Cómo leer el número de la pila</h2>
+    <div class="article-content">
+      <p>El código de la pila sigue este patrón: <strong>CR + diámetro + grosor</strong></p>
+      <ul>
+        <li><strong>CR</strong> → tipo de litio (Lithium Manganese Dioxide)</li>
+        <li><strong>20</strong> → 20mm de diámetro</li>
+        <li><strong>32</strong> → 3.2mm de grosor</li>
+      </ul>
+      <p>Por lo tanto, una <strong>CR2032</strong> mide 20mm de diámetro y 3.2mm de grosor. Una <strong>CR2016</strong> tiene el mismo diámetro pero solo 1.6mm de grosor — son intercambiables en tamaño exterior pero NO en grosor.</p>
+
+      <div class="info-note">
+        <strong>Consejo:</strong> Antes de comprar, abre tu llave y mira el número grabado en la pila vieja. Es la forma más fiable de asegurarte de comprar la correcta.
+      </div>
+    </div>
+
+    <section class="faq-section" aria-label="Preguntas frecuentes">
+      <h2 class="faq-heading">Preguntas frecuentes</h2>
+      {faqs.map((faq, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary class="faq-question">¿{faq.question}?</summary>
+          <div class="faq-answer"><p>{faq.answer}</p></div>
+        </details>
+      ))}
+    </section>
+
+    <div class="text-center mt-2 mb-2">
+      <a href="/blog" class="cta-button">Ver todas las guías de cambio de pila</a>
+    </div>
+  </div>
+</Base>

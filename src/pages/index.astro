@@ -1,22 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { generateWebSiteSchema } from '../utils/seo';
+import { generateWebSiteSchema, generateOrganizationSchema } from '../utils/seo';
 import { generateExcerpt, cleanWpContent } from '../utils/content';
 import postsData from '../data/posts.json';
 
-const categories = [
-  { name: 'Llaves de coche', slug: 'blog', count: 474 },
-  { name: 'Audi', slug: 'audi', count: 75 },
-  { name: 'Renault', slug: 'renault', count: 67 },
-  { name: 'Digital', slug: 'digital', count: 60 },
-  { name: 'Volkswagen', slug: 'volkswagen', count: 41 },
-  { name: 'Reloj', slug: 'reloj', count: 34 },
-  { name: 'Mercedes Benz', slug: 'mercedes-benz', count: 10 },
+// Conteo dinámico de categorías desde posts.json
+const categoryDefs = [
+  { name: 'Llaves de coche', slug: 'blog', dbName: 'Blog' },
+  { name: 'Audi', slug: 'audi', dbName: 'Audi' },
+  { name: 'Renault', slug: 'renault', dbName: 'Renault' },
+  { name: 'Digital', slug: 'digital', dbName: 'Digital' },
+  { name: 'Volkswagen', slug: 'volkswagen', dbName: 'Volkswagen' },
+  { name: 'Reloj', slug: 'reloj', dbName: 'Reloj' },
+  { name: 'Mercedes Benz', slug: 'mercedes-benz', dbName: 'Mercedes benz' },
 ];
 
+const categories = categoryDefs.map(cat => ({
+  ...cat,
+  count: (postsData as any[]).filter((p: any) => p.categories?.includes(cat.dbName)).length,
+})).sort((a, b) => b.count - a.count);
+
 const latestPosts = postsData.slice(0, 12);
-const schema = generateWebSiteSchema();
+const schema = [generateWebSiteSchema(), generateOrganizationSchema()];
 ---
 
 <Base

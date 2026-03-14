@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '@fontsource-variable/inter';
 
 interface Props {
   title: string;
@@ -8,6 +9,9 @@ interface Props {
   canonicalUrl?: string;
   schema?: object | object[];
   noindex?: boolean;
+  ogType?: string;
+  prevUrl?: string;
+  nextUrl?: string;
 }
 
 const {
@@ -17,10 +21,16 @@ const {
   canonicalUrl,
   schema,
   noindex = false,
+  ogType = 'website',
+  prevUrl,
+  nextUrl,
 } = Astro.props;
 
 const siteUrl = 'https://cambiandopilas.com';
 const fullCanonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+const resolvedOgImage = ogImage
+  ? (ogImage.startsWith('http') ? ogImage : siteUrl + ogImage)
+  : siteUrl + '/og-default.svg';
 const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
@@ -33,15 +43,17 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
   <meta name="description" content={description} />
   <link rel="canonical" href={fullCanonical} />
   {noindex && <meta name="robots" content="noindex,nofollow" />}
+  {prevUrl && <link rel="prev" href={siteUrl + prevUrl} />}
+  {nextUrl && <link rel="next" href={siteUrl + nextUrl} />}
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={fullCanonical} />
   <meta property="og:site_name" content="Cambiando de Pilas" />
   <meta property="og:locale" content="es_ES" />
-  {ogImage && <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : siteUrl + ogImage} />}
+  <meta property="og:image" content={resolvedOgImage} />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -51,11 +63,7 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Fonts (non-blocking) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <!-- Fonts: auto-hosted, zero external requests -->
 
   <!-- Schema.org -->
   {schemas.map((s) => (
@@ -81,8 +89,10 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
         <a href="/categoria/audi">Audi</a>
         <a href="/categoria/renault">Renault</a>
         <a href="/categoria/volkswagen">Volkswagen</a>
+        <a href="/categoria/mercedes-benz">Mercedes</a>
         <a href="/categoria/digital">Digital</a>
         <a href="/categoria/reloj">Reloj</a>
+        <a href="/tipos-de-pilas">🔋 Guía</a>
         <a href="/blog">Blog</a>
       </nav>
     </div>
@@ -106,8 +116,13 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
           <a href="/categoria/reloj">Reloj</a>
         </div>
         <div class="footer-col">
-          <h4>Información</h4>
+          <h4>Guías</h4>
+          <a href="/tipos-de-pilas">Tipos de pilas para llaves</a>
           <a href="/blog">Todos los artículos</a>
+        </div>
+        <div class="footer-col">
+          <h4>Sitio</h4>
+          <a href="/sobre-nosotros">Sobre nosotros</a>
           <a href="/politica-de-privacidad">Política de privacidad</a>
         </div>
       </div>

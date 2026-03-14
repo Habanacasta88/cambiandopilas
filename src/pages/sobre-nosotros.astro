@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { generateOrganizationSchema } from '../utils/seo';
+
+const schema = generateOrganizationSchema();
+---
+
+<Base
+  title="Sobre Nosotros - Cambiando de Pilas"
+  description="Cambiando de Pilas es un sitio especializado en guías paso a paso para cambiar pilas y baterías en llaves de coche, relojes, auriculares y dispositivos electrónicos."
+  schema={schema}
+>
+  <div class="container">
+    <Breadcrumbs items={[{ name: 'Sobre nosotros', url: '/sobre-nosotros' }]} />
+
+    <header class="article-header">
+      <h1>Sobre Cambiando de Pilas</h1>
+    </header>
+
+    <div class="article-content">
+      <h2>¿Qué es Cambiando de Pilas?</h2>
+      <p>
+        <strong>Cambiando de Pilas</strong> es un sitio especializado en guías prácticas y tutoriales paso a paso para cambiar pilas y baterías en todo tipo de dispositivos: desde la llave de tu coche hasta tus auriculares inalámbricos, relojes digitales y detectores de humo.
+      </p>
+      <p>
+        Nuestra misión es simple: que cualquier persona pueda resolver por sí misma el cambio de una pila, sin necesitar ir a un taller ni gastar más de lo necesario.
+      </p>
+
+      <h2>¿Qué encontrarás aquí?</h2>
+      <ul>
+        <li><strong>Guías de llaves de coche</strong> — Volkswagen, Audi, Renault, Mercedes, Toyota, Ford, Nissan, Hyundai, Seat, BMW y más</li>
+        <li><strong>Auriculares inalámbricos</strong> — JBL, Bose, Sony, Beats, Skullcandy y otros</li>
+        <li><strong>Relojes</strong> — Casio, Swatch, Fossil y analógicos en general</li>
+        <li><strong>Dispositivos electrónicos</strong> — mandos de garaje, detectores de humo, controles remotos</li>
+        <li><strong>Guías sobre tipos de pilas</strong> — qué pila usar en cada dispositivo (CR2032, CR2025, etc.)</li>
+      </ul>
+
+      <h2>¿Por qué confiar en nosotros?</h2>
+      <p>
+        Todas nuestras guías están elaboradas con información técnica verificada y explicadas de forma clara para usuarios sin conocimientos técnicos previos. Revisamos el contenido periódicamente para asegurar su exactitud.
+      </p>
+      <p>
+        Con más de <strong>760 artículos</strong> publicados, somos uno de los recursos en español más completos sobre cambio de pilas y baterías.
+      </p>
+
+      <h2>Transparencia sobre enlaces de afiliado</h2>
+      <p>
+        Algunos artículos incluyen enlaces a productos en Amazon. Si compras a través de estos enlaces, podemos recibir una pequeña comisión sin ningún coste adicional para ti. Esto nos ayuda a mantener el sitio actualizado y gratuito.
+      </p>
+      <p>
+        Solo recomendamos productos que consideramos de calidad. Nuestra opinión editorial es independiente de las relaciones comerciales.
+      </p>
+
+      <div class="info-note">
+        <strong>¿Tienes una pregunta específica?</strong> Puedes buscarlo en nuestro <a href="/blog">listado completo de artículos</a> o consultar la <a href="/tipos-de-pilas">guía de tipos de pilas</a>.
+      </div>
+    </div>
+  </div>
+</Base>

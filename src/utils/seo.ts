@@ -49,6 +49,29 @@ export function generateArticleSchema(opts: {
   };
 }
 
+export function generateHowToSchema(opts: {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  steps: string[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: opts.title,
+    description: opts.description,
+    url: opts.url,
+    ...(opts.image && { image: opts.image }),
+    step: opts.steps.map((text, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: text.length > 80 ? text.substring(0, 80) + '…' : text,
+      text,
+    })),
+  };
+}
+
 export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
   return {
     '@context': 'https://schema.org',
@@ -71,5 +94,25 @@ export function generateWebSiteSchema() {
     name: 'Cambiando de Pilas',
     url: 'https://cambiandopilas.com',
     description: 'Guías y tutoriales sobre cómo cambiar pilas y baterías de llaves de coche, auriculares, relojes y dispositivos electrónicos.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://cambiandopilas.com/blog?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+export function generateOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Cambiando de Pilas',
+    url: 'https://cambiandopilas.com',
+    logo: 'https://cambiandopilas.com/favicon.svg',
+    description: 'Guías y tutoriales sobre cómo cambiar pilas y baterías en todo tipo de dispositivos.',
+    sameAs: [],
   };
 }

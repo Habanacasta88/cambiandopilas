@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { title, slug, excerpt, featuredImage, date } = Astro.props;
-const formattedDate = date ? new Date(date).toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+const formattedDate = date ? new Date(date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
 ---
 
 <article class="card">

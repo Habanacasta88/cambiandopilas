@@ -1,15 +1,29 @@
 # Cambiando de Pilas - cambiandopilas.com
 
-> Guías y tutoriales sobre cómo cambiar pilas y baterías de llaves de coche, auriculares, relojes y dispositivos electrónicos.
+> Guías y tutoriales paso a paso sobre cómo cambiar pilas y baterías de llaves de coche, auriculares, relojes y dispositivos electrónicos.
 
 ## Sobre este sitio
-Cambiando de Pilas (cambiandopilas.com) ofrece tutoriales paso a paso para reemplazar baterías y pilas en todo tipo de dispositivos: llaves de coche (Volkswagen, Audi, Renault, Mercedes, Ford, Toyota, etc.), auriculares inalámbricos, relojes digitales y más.
+Cambiando de Pilas (cambiandopilas.com) ofrece tutoriales paso a paso para reemplazar baterías y pilas en todo tipo de dispositivos: llaves de coche (Volkswagen, Audi, Renault, Mercedes, Ford, Toyota, etc.), auriculares inalámbricos, relojes digitales y más. Más de 760 guías disponibles.
+
+## Categorías principales
+- Llaves de coche: https://cambiandopilas.com/categoria/blog (474 artículos)
+- Audi: https://cambiandopilas.com/categoria/audi (75 artículos)
+- Renault: https://cambiandopilas.com/categoria/renault (67 artículos)
+- Digital (auriculares, electrónica): https://cambiandopilas.com/categoria/digital (60 artículos)
+- Volkswagen: https://cambiandopilas.com/categoria/volkswagen (41 artículos)
+- Reloj: https://cambiandopilas.com/categoria/reloj (34 artículos)
+- Mercedes Benz: https://cambiandopilas.com/categoria/mercedes-benz (10 artículos)
 
 ## Contenido principal
-- Cambio de pila de llaves de coche por marca: Volkswagen, Audi, Renault, Mercedes Benz, Ford, Toyota, Nissan, etc.
-- Cambio de batería en auriculares: JBL, Bose, Sony, Beats, Skullcandy
-- Cambio de pila en relojes digitales y analógicos
-- Guías sobre pilas y baterías en dispositivos electrónicos
+- Cambio de pila de llaves de coche por marca: Volkswagen, Audi, Renault, Mercedes Benz, Ford, Toyota, Nissan, Hyundai, Kia, BMW, etc.
+- Cambio de batería en auriculares inalámbricos: JBL, Bose, Sony, Beats, Skullcandy, Samsung Galaxy Buds
+- Cambio de pila en relojes digitales y analógicos: Casio, Swatch, Fossil
+- Guías sobre pilas y baterías en dispositivos electrónicos: mandos de garaje, controles remotos
+
+## Páginas clave
+- Inicio: https://cambiandopilas.com/
+- Blog (todos los artículos): https://cambiandopilas.com/blog
+- Mapa del sitio: https://cambiandopilas.com/sitemap-index.xml
 
 ## Contacto
 - Web: https://cambiandopilas.com

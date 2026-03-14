@@ -1,7 +1,7 @@
 /* === Reset & Base === */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;color:#1a1a2e;background:#fff;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter Variable','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;color:#1a1a2e;background:#fff;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
 a{color:#0066cc;text-decoration:none;transition:color .2s}
 a:hover{color:#004499}
@@ -101,12 +101,24 @@ a:hover{color:#004499}
 .footer-col a:hover{color:#fff}
 .footer-bottom{border-top:1px solid #333;padding-top:1.5rem;text-align:center;font-size:.8rem;color:#777}
 
-/* === Schema/FAQ === */
-.faq-section{margin:2rem 0}
-.faq-item{border:1px solid #e8e8e8;border-radius:8px;margin-bottom:.75rem;overflow:hidden}
-.faq-question{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;font-weight:600;cursor:pointer;background:#fafbfc;transition:background .2s}
-.faq-question:hover{background:#f0f4ff}
-.faq-answer{padding:0 1.25rem 1rem;color:#555;line-height:1.6}
+/* === FAQ Accordion (details/summary) === */
+.faq-section{margin:2.5rem 0;border-top:2px solid #e0e8f0;padding-top:1.5rem}
+.faq-heading{font-size:1.35rem;font-weight:800;color:#1a1a2e;margin-bottom:1rem}
+.faq-item{border:1px solid #e0e8f0;border-radius:10px;margin-bottom:.6rem;overflow:hidden;background:#fff}
+.faq-question{list-style:none;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;font-weight:600;font-size:.95rem;cursor:pointer;background:#f8faff;color:#1a1a2e;transition:background .2s}
+.faq-question:hover{background:#e8f0fe}
+.faq-question::after{content:"＋";font-size:1.1rem;color:#0066cc;flex-shrink:0;margin-left:.5rem;transition:transform .2s}
+details[open] .faq-question::after{content:"－"}
+.faq-answer{padding:.75rem 1.25rem 1rem;color:#444;line-height:1.65;font-size:.92rem}
+.faq-answer p{margin:0}
+
+/* === Related Posts === */
+.related-posts{background:#f8faff;border:1px solid #e0e8f0;border-radius:12px;padding:1.25rem 1.5rem;margin:2rem 0 3rem}
+.related-heading{font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:.75rem}
+.related-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem}
+.related-list a{font-size:.9rem;color:#0066cc;text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.related-list a::before{content:"→";color:#f49600;flex-shrink:0}
+.related-list a:hover{text-decoration:underline}
 
 /* === Utilities === */
 .text-center{text-align:center}
@@ -125,6 +137,47 @@ a:hover{color:#004499}
 .cat-card:hover{background:#e8f0fe;border-color:#0066cc;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
 .cat-card h3{font-size:1.1rem;font-weight:700;color:#1a1a2e;margin-bottom:.25rem}
 .cat-card p{font-size:.85rem;color:#666;margin:0}
+
+/* === Affiliate CTA === */
+.affiliate-cta{background:linear-gradient(135deg,#fff8f0,#fff3e0);border:1px solid #f49600;border-radius:12px;padding:1rem 1.25rem .6rem;margin:2rem 0}
+.affiliate-inner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.affiliate-icon{font-size:2rem;flex-shrink:0}
+.affiliate-text{flex:1;min-width:180px}
+.affiliate-text strong{display:block;font-size:.95rem;color:#1a1a2e;margin-bottom:.2rem}
+.affiliate-text span{font-size:.82rem;color:#666}
+.affiliate-btn{display:inline-block;background:#f49600;color:#fff;font-weight:700;padding:.6rem 1.25rem;border-radius:8px;font-size:.9rem;white-space:nowrap;transition:background .2s}
+.affiliate-btn:hover{background:#d97706;color:#fff}
+.affiliate-disclaimer{font-size:.72rem;color:#aaa;margin-top:.4rem;text-align:right}
+
+/* === Category intro === */
+.category-intro{background:#f8faff;border-left:4px solid #0066cc;padding:1rem 1.25rem;margin-bottom:1.5rem;border-radius:0 8px 8px 0;font-size:.92rem;color:#444;line-height:1.6}
+.category-intro strong{color:#1a1a2e}
+.category-intro a{color:#0066cc}
+
+/* === Page subtitle === */
+.page-subtitle{font-size:1.1rem;color:#555;margin-top:.5rem;font-weight:400}
+
+/* === Intro box === */
+.intro-box{background:#f0f7ff;border:1px solid #cce0ff;border-radius:10px;padding:1.1rem 1.4rem;margin-bottom:2rem;font-size:.95rem;color:#333;line-height:1.65}
+
+/* === Battery table === */
+.battery-table-wrap{overflow-x:auto;margin:1rem 0 2rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.battery-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.battery-table th{background:#1a1a2e;color:#fff;padding:.75rem 1rem;text-align:left;white-space:nowrap}
+.battery-table td{padding:.65rem 1rem;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.battery-table tr:hover td{background:#f8faff}
+.battery-table a{color:#0066cc;font-weight:700}
+
+/* === Brand grid (tipos-de-pilas) === */
+.brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 2.5rem}
+.brand-card{background:#fff;border:1px solid #e0e8f0;border-radius:10px;padding:1rem;transition:box-shadow .2s}
+.brand-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.07)}
+.brand-type{margin-bottom:.6rem}
+.battery-badge{display:inline-block;background:#1a1a2e;color:#fff;font-weight:800;padding:.2rem .75rem;border-radius:20px;font-size:.85rem;text-decoration:none;letter-spacing:.02em}
+.battery-badge:hover{background:#0066cc;color:#fff}
+.brand-list{list-style:none;padding:0;margin:0}
+.brand-list li{font-size:.83rem;color:#555;padding:.2rem 0;border-bottom:1px dashed #f0f0f0}
+.brand-list li:last-child{border:none}
 
 /* === Pagination === */
 .pagination{display:flex;align-items:center;justify-content:center;gap:1rem;padding:2rem 0 3rem}
