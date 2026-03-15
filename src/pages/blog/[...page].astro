@@ -52,6 +52,19 @@ const nextUrl = currentPage < tp ? `/blog/${currentPage + 1}` : undefined;
       <p style="color:#666">{postsData.length} guías sobre cambio de pilas y baterías</p>
     </header>
 
+    {currentPage === 1 && (
+      <div style="margin:1rem 0 1.5rem">
+        <input
+          type="search"
+          id="blogSearch"
+          placeholder="Buscar artículos… (ej: CR2032, Audi A3, reloj)"
+          style="width:100%;padding:.65rem 1rem;border:1.5px solid #d0d8e8;border-radius:8px;font-size:1rem;box-sizing:border-box"
+          autocomplete="off"
+        />
+        <div id="blogSearchResults" style="display:none;margin-top:1rem"></div>
+      </div>
+    )}
+
     <div class="card-grid">
       {paginatedPosts.map((post: any) => (
         <ArticleCard
@@ -76,4 +89,51 @@ const nextUrl = currentPage < tp ? `/blog/${currentPage + 1}` : undefined;
       </nav>
     )}
   </div>
+
+  {currentPage === 1 && (
+    <script>
+      const input = document.getElementById('blogSearch');
+      const resultsEl = document.getElementById('blogSearchResults');
+      const grid = document.querySelector('.card-grid');
+      const pagination = document.querySelector('.pagination');
+      let posts = [];
+
+      const urlQ = new URLSearchParams(location.search).get('q') || '';
+      if (urlQ && input) {
+        (input as HTMLInputElement).value = urlQ;
+        loadAndFilter(urlQ);
+      }
+
+      input && input.addEventListener('input', () => loadAndFilter((input as HTMLInputElement).value));
+
+      async function loadAndFilter(q: string) {
+        if (posts.length === 0) {
+          try { posts = await (await fetch('/search-index.json')).json(); } catch(e) {}
+        }
+        const term = q.toLowerCase().trim();
+        if (term.length < 2) {
+          if (resultsEl) (resultsEl as HTMLElement).style.display = 'none';
+          if (grid) (grid as HTMLElement).style.display = '';
+          if (pagination) (pagination as HTMLElement).style.display = '';
+          return;
+        }
+        const matches = (posts as any[]).filter((p: any) =>
+          p.title.toLowerCase().includes(term) || p.excerpt.toLowerCase().includes(term)
+        );
+        if (grid) (grid as HTMLElement).style.display = 'none';
+        if (pagination) (pagination as HTMLElement).style.display = 'none';
+        if (resultsEl) {
+          (resultsEl as HTMLElement).style.display = 'block';
+          if (matches.length === 0) {
+            resultsEl.innerHTML = '<p style="color:#666">Sin resultados para "' + q + '"</p>';
+          } else {
+            resultsEl.innerHTML = '<p style="color:#666;margin-bottom:1rem">' + matches.length + ' resultados</p><div class="card-grid">' +
+              matches.slice(0, 24).map((p: any) =>
+                '<a href="/' + p.slug + '/" class="article-card"><h3 style="font-size:1rem;margin:0 0 .4rem">' + p.title + '</h3><p style="font-size:.85rem;color:#666;margin:0">' + p.excerpt + '</p></a>'
+              ).join('') + '</div>';
+          }
+        }
+      }
+    </script>
+  )}
 </Base>
