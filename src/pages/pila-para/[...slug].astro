@@ -1,0 +1,154 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { carBatteries } from '../../data/car-batteries';
+import { generateBreadcrumbSchema, generateFAQSchema, generateHowToSchema } from '../../utils/seo';
+
+export function getStaticPaths() {
+  return carBatteries.map((entry) => ({
+    params: { slug: `${entry.marcaSlug}/${entry.modeloSlug}` },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const siteUrl = 'https://cambiandopilas.com';
+const pageUrl = `${siteUrl}/pila-para/${entry.marcaSlug}/${entry.modeloSlug}/`;
+
+const pilaNombre = entry.pila;
+const pilaAmazon = entry.amazon;
+
+const breadcrumb = generateBreadcrumbSchema([
+  { name: 'Inicio', url: siteUrl },
+  { name: 'Pila para...', url: `${siteUrl}/que-pila-usa-mi-coche/` },
+  { name: entry.marca, url: `${siteUrl}/marca/${entry.marcaSlug}/` },
+  { name: entry.modelo, url: pageUrl },
+]);
+
+const howto = generateHowToSchema({
+  title: `Cómo cambiar la pila de la llave ${entry.marca} ${entry.modelo}`,
+  description: `Instrucciones paso a paso para cambiar la pila ${pilaNombre} de la llave del ${entry.marca} ${entry.modelo}.`,
+  url: pageUrl,
+  steps: [
+    `Consigue una pila ${pilaNombre} de litio 3V (disponible en Amazon, ferreterías o supermercados).`,
+    `Localiza la ranura o botón de apertura en la carcasa del mando de tu ${entry.marca} ${entry.modelo}.`,
+    `Usa una moneda o destornillador plano para abrir suavemente la carcasa por la ranura lateral.`,
+    `Retira la pila ${pilaNombre} usada. Anota la orientación (el lado + suele quedar hacia arriba).`,
+    `Inserta la pila nueva ${pilaNombre} respetando la polaridad indicada en el compartimento.`,
+    `Cierra la carcasa presionando hasta escuchar un clic y prueba el mando desde 5 metros.`,
+  ],
+});
+
+const faqs = [
+  {
+    question: `¿Qué pila necesita la llave del ${entry.marca} ${entry.modelo}?`,
+    answer: `La llave del ${entry.marca} ${entry.modelo}${entry.anos ? ` (${entry.anos})` : ''} usa la pila ${pilaNombre} de litio, 3 voltios. ${entry.notas ? entry.notas + '.' : ''} Puedes comprarla en cualquier ferretería, supermercado o en Amazon.`,
+  },
+  {
+    question: `¿Puedo cambiar yo mismo la pila de la llave ${entry.marca} ${entry.modelo}?`,
+    answer: `Sí. El cambio de pila de la llave ${entry.marca} ${entry.modelo} es sencillo y no requiere visitar el concesionario. Solo necesitas una pila ${pilaNombre} nueva y un destornillador plano o moneda. El proceso lleva menos de 5 minutos.`,
+  },
+  {
+    question: `¿Cuánto dura la pila ${pilaNombre} de la llave del ${entry.marca} ${entry.modelo}?`,
+    answer: `La pila ${pilaNombre} de la llave del ${entry.marca} ${entry.modelo} dura entre 2 y 4 años con uso normal. Señales de batería baja: el alcance del mando se reduce, necesitas presionar el botón varias veces, o aparece el aviso "batería baja" en el cuadro de instrumentos.`,
+  },
+];
+
+const faqSchema = generateFAQSchema(faqs);
+
+const title = `Pila llave ${entry.marca} ${entry.modelo}: ${pilaNombre}${entry.anos ? ` (${entry.anos})` : ''} | Guía completa`;
+const description = `La llave del ${entry.marca} ${entry.modelo} usa la pila ${pilaNombre} (3V). Guía paso a paso para cambiarla tú mismo en menos de 5 minutos. Sin ir al concesionario.`;
+---
+
+<Base
+  title={title}
+  description={description}
+  schema={[breadcrumb, howto, faqSchema]}
+  ogType="article"
+>
+  <div class="container">
+    <Breadcrumbs items={[
+      { name: 'Marcas', url: `/marca/${entry.marcaSlug}/` },
+      { name: entry.marca, url: `/marca/${entry.marcaSlug}/` },
+      { name: entry.modelo, url: `/pila-para/${entry.marcaSlug}/${entry.modeloSlug}/` },
+    ]} />
+
+    <header class="article-header">
+      <h1>Pila llave {entry.marca} {entry.modelo}: <span style="color:#f49600">{pilaNombre}</span></h1>
+      {entry.anos && <p style="color:#666;margin:.25rem 0">Años: {entry.anos}</p>}
+    </header>
+
+    <!-- Battery highlight box -->
+    <div class="pila-highlight">
+      <div class="pila-badge-large">{pilaNombre}</div>
+      <div class="pila-highlight-info">
+        <p><strong>Tipo:</strong> Pila de botón de litio · 3V</p>
+        {entry.notas && <p><strong>Nota:</strong> {entry.notas}</p>}
+        <a href={pilaAmazon} target="_blank" rel="noopener noreferrer sponsored" class="cta-button" style="display:inline-block;margin-top:.75rem">
+          Comprar pila {pilaNombre} en Amazon →
+        </a>
+      </div>
+    </div>
+
+    <!-- How to steps -->
+    <section style="margin:2.5rem 0">
+      <h2>Cómo cambiar la pila de la llave {entry.marca} {entry.modelo}</h2>
+      <ol class="howto-steps">
+        <li><strong>Consigue la pila {pilaNombre}</strong> — De litio 3V. Disponible en ferreterías, supermercados o <a href={pilaAmazon} target="_blank" rel="noopener noreferrer sponsored">Amazon</a>.</li>
+        <li><strong>Abre la carcasa del mando</strong> — Busca la ranura lateral o el botón de apertura de la llave {entry.marca} {entry.modelo}.</li>
+        <li><strong>Usa una moneda o destornillador plano</strong> — Inserta en la ranura y gira suavemente para separar las dos mitades.</li>
+        <li><strong>Retira la pila vieja</strong> — Anota la orientación antes de sacarla. El lado positivo (+) suele quedar hacia arriba.</li>
+        <li><strong>Inserta la pila nueva {pilaNombre}</strong> — Respeta la polaridad indicada en el compartimento.</li>
+        <li><strong>Cierra y prueba</strong> — Presiona hasta escuchar un clic. Prueba el mando desde al menos 5 metros.</li>
+      </ol>
+    </section>
+
+    <!-- Internal links -->
+    <div class="info-note" style="margin:2rem 0">
+      <strong>¿Buscas guías específicas?</strong> Consulta la <a href={`/marca/${entry.marcaSlug}/`}>página de pilas {entry.marca}</a> para ver todos los modelos, o la <a href="/tipos-de-pilas/">guía completa de tipos de pilas</a> para comparar {pilaNombre} con otras opciones.
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section" aria-label="Preguntas frecuentes">
+      <h2 class="faq-heading">Preguntas frecuentes</h2>
+      {faqs.map((faq, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary class="faq-question">{faq.question}</summary>
+          <div class="faq-answer"><p>{faq.answer}</p></div>
+        </details>
+      ))}
+    </section>
+
+    <div class="text-center mt-2 mb-2">
+      <a href={`/marca/${entry.marcaSlug}/`} class="cta-button">Ver todos los modelos {entry.marca} →</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+.pila-highlight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #f8faff;
+  border: 2px solid #f49600;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0 2rem;
+  flex-wrap: wrap;
+}
+.pila-badge-large {
+  font-family: monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  background: #0066cc;
+  padding: .5rem 1.25rem;
+  border-radius: 8px;
+  letter-spacing: .05em;
+  flex-shrink: 0;
+}
+.pila-highlight-info p { margin: .25rem 0; color: #333; }
+.howto-steps { padding-left: 1.5rem; }
+.howto-steps li { margin-bottom: .85rem; line-height: 1.7; color: #333; }
+</style>
