@@ -59,15 +59,23 @@ const schema = [generateWebSiteSchema(), generateOrganizationSchema(), homeFAQSc
 
     <!-- Brand quick-nav -->
     <h2 class="mt-2" style="font-size:1.5rem;font-weight:700">Guías por marca de coche</h2>
+    <div style="text-align:center;margin:1rem 0 1.5rem">
+      <a href="/que-pila-usa-mi-coche/" class="cta-button">¿Qué pila usa mi coche? →</a>
+    </div>
     <div class="brand-nav" style="margin:1rem 0 2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem">
       {[
-        { slug: 'audi',       name: 'Audi',       pila: 'CR2032', emoji: '🚗' },
-        { slug: 'renault',    name: 'Renault',    pila: 'CR2025', emoji: '🚘' },
-        { slug: 'volkswagen', name: 'Volkswagen', pila: 'CR2032', emoji: '🚙' },
-        { slug: 'mercedes',   name: 'Mercedes',   pila: 'CR2025', emoji: '🚕' },
+        { slug: 'audi',       name: 'Audi',       pila: 'CR2032' },
+        { slug: 'volkswagen', name: 'Volkswagen', pila: 'CR2032' },
+        { slug: 'toyota',     name: 'Toyota',     pila: 'CR2032' },
+        { slug: 'ford',       name: 'Ford',       pila: 'CR2032' },
+        { slug: 'renault',    name: 'Renault',    pila: 'CR2025' },
+        { slug: 'mercedes',   name: 'Mercedes',   pila: 'CR2025' },
+        { slug: 'bmw',        name: 'BMW',        pila: 'CR2032' },
+        { slug: 'seat',       name: 'SEAT',       pila: 'CR2032' },
+        { slug: 'peugeot',    name: 'Peugeot',    pila: 'CR2032' },
+        { slug: 'nissan',     name: 'Nissan',     pila: 'CR2032' },
       ].map((b) => (
         <a href={`/marca/${b.slug}`} class="brand-card">
-          <span class="brand-emoji">{b.emoji}</span>
           <strong>{b.name}</strong>
           <span class="brand-pila">Pila {b.pila}</span>
         </a>

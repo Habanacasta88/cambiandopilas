@@ -224,3 +224,9 @@ details[open] .faq-question::after{content:"－"}
 .pagination-btn{display:inline-block;padding:.5rem 1.25rem;border:1px solid #e0e8f0;border-radius:6px;font-size:.9rem;font-weight:500;color:#0066cc;transition:all .2s}
 .pagination-btn:hover{background:#f0f4ff;border-color:#0066cc}
 .pagination-info{font-size:.9rem;color:#666}
+
+/* Improve font loading performance */
+@font-face {
+  font-family: 'Inter Variable';
+  font-display: swap;
+}
