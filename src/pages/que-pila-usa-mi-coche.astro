@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { carBatteries, brands } from '../data/car-batteries';
+import { generateFAQSchema } from '../utils/seo';
+
+// Build brand → models map for JS
+const brandModels: Record<string, { modelo: string; slug: string; pila: string }[]> = {};
+for (const entry of carBatteries) {
+  if (!brandModels[entry.marcaSlug]) brandModels[entry.marcaSlug] = [];
+  brandModels[entry.marcaSlug].push({
+    modelo: entry.modelo,
+    slug: entry.modeloSlug,
+    pila: entry.pila,
+  });
+}
+
+const brandNames: Record<string, string> = {};
+for (const entry of carBatteries) {
+  brandNames[entry.marcaSlug] = entry.marca;
+}
+
+const sortedBrands = [...brands].sort((a, b) => brandNames[a].localeCompare(brandNames[b]));
+
+const faqSchema = generateFAQSchema([
+  { question: '¿Cómo sé qué pila necesita la llave de mi coche?', answer: 'Usa el configurador de esta página: selecciona tu marca y modelo y te diremos exactamente qué pila necesitas. Alternativamente, abre la carcasa de tu llave y verás el número impreso en la pila actual (normalmente CR2032, CR2025 o CR2016).' },
+  { question: '¿Todas las llaves de coche usan la misma pila?', answer: 'No. Aunque la CR2032 es la más común, muchas llaves usan CR2025 (Renault, Mercedes) o CR2016 (Honda, Mazda). Usa este configurador o consulta el manual del vehículo para saber cuál necesita la tuya.' },
+]);
+---
+
+<Base
+  title="¿Qué pila usa mi coche? Buscador por marca y modelo | Cambiando de Pilas"
+  description="Encuentra qué pila necesita la llave de tu coche. Selecciona marca y modelo y te decimos el tipo exacto: CR2032, CR2025, CR2016 y más."
+  schema={[faqSchema]}
+>
+  <div class="container" style="max-width:700px">
+    <Breadcrumbs items={[{ name: '¿Qué pila usa mi coche?', url: '/que-pila-usa-mi-coche/' }]} />
+
+    <header class="article-header">
+      <h1>¿Qué pila usa mi coche?</h1>
+      <p style="color:#666">Selecciona tu marca y modelo para saber qué pila necesita la llave.</p>
+    </header>
+
+    <div class="configurator-box">
+      <div class="config-step">
+        <label for="selectMarca"><strong>1. Selecciona la marca</strong></label>
+        <select id="selectMarca" class="config-select">
+          <option value="">— Elige marca —</option>
+          {sortedBrands.map(slug => (
+            <option value={slug}>{brandNames[slug]}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="config-step" id="stepModelo" style="display:none">
+        <label for="selectModelo"><strong>2. Selecciona el modelo</strong></label>
+        <select id="selectModelo" class="config-select">
+          <option value="">— Elige modelo —</option>
+        </select>
+      </div>
+
+      <div id="resultBox" style="display:none" class="result-box">
+        <p id="resultText"></p>
+        <a id="resultLink" href="#" class="cta-button" style="display:inline-block;margin-top:.75rem">Ver guía completa →</a>
+      </div>
+    </div>
+
+    <section class="faq-section" style="margin-top:3rem" aria-label="Preguntas frecuentes">
+      <h2 class="faq-heading">Preguntas frecuentes</h2>
+      {faqSchema.mainEntity.map((faq: any, i: number) => (
+        <details class="faq-item" open={i === 0}>
+          <summary class="faq-question">{faq.name}</summary>
+          <div class="faq-answer"><p>{faq.acceptedAnswer.text}</p></div>
+        </details>
+      ))}
+    </section>
+  </div>
+</Base>
+
+<script define:vars={{ brandModels }}>
+  const selectMarca = document.getElementById('selectMarca');
+  const selectModelo = document.getElementById('selectModelo');
+  const stepModelo = document.getElementById('stepModelo');
+  const resultBox = document.getElementById('resultBox');
+  const resultText = document.getElementById('resultText');
+  const resultLink = document.getElementById('resultLink');
+
+  selectMarca.addEventListener('change', () => {
+    const marca = selectMarca.value;
+    stepModelo.style.display = 'none';
+    resultBox.style.display = 'none';
+    selectModelo.innerHTML = '<option value="">— Elige modelo —</option>';
+    if (!marca) return;
+    const modelos = brandModels[marca] || [];
+    modelos.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.slug;
+      opt.dataset.pila = m.pila;
+      opt.textContent = m.modelo;
+      selectModelo.appendChild(opt);
+    });
+    stepModelo.style.display = 'block';
+  });
+
+  selectModelo.addEventListener('change', () => {
+    const modeloSlug = selectModelo.value;
+    resultBox.style.display = 'none';
+    if (!modeloSlug) return;
+    const opt = selectModelo.options[selectModelo.selectedIndex];
+    const pila = opt.dataset.pila;
+    const modeloNombre = opt.textContent;
+    const marcaSlug = selectMarca.value;
+    resultText.innerHTML = `La llave del <strong>${modeloNombre}</strong> usa la pila <strong style="font-family:monospace;font-size:1.1em;color:#0066cc">${pila}</strong> (litio 3V).`;
+    resultLink.href = `/pila-para/${marcaSlug}/${modeloSlug}/`;
+    resultLink.textContent = `Ver guía completa para ${modeloNombre} →`;
+    resultBox.style.display = 'block';
+  });
+</script>
+
+<style>
+.configurator-box { background:#f8faff; border:2px solid #e0e8f0; border-radius:12px; padding:2rem; margin:1.5rem 0; }
+.config-step { margin-bottom:1.25rem; }
+.config-step label { display:block; margin-bottom:.5rem; color:#1a1a2e; }
+.config-select { width:100%; padding:.65rem .85rem; border:1.5px solid #d0d8e8; border-radius:8px; font-size:1rem; background:#fff; color:#1a1a2e; }
+.result-box { background:#fff; border:2px solid #f49600; border-radius:10px; padding:1.25rem 1.5rem; margin-top:1rem; }
+#resultText { font-size:1.1rem; color:#333; margin:0; line-height:1.7; }
+</style>
