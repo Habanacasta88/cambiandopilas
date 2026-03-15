@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import postsData from '../data/posts.json';
+
+const mainPages = [
+  { name: 'Inicio', url: '/' },
+  { name: '¿Qué pila usa mi coche?', url: '/que-pila-usa-mi-coche/' },
+  { name: 'Tipos de pilas', url: '/tipos-de-pilas/' },
+  { name: 'Blog — todos los artículos', url: '/blog/' },
+  { name: 'Sobre nosotros', url: '/sobre-nosotros/' },
+];
+
+const brandPages = [
+  { name: 'Pilas llave Audi', url: '/marca/audi/' },
+  { name: 'Pilas llave Renault', url: '/marca/renault/' },
+  { name: 'Pilas llave Volkswagen', url: '/marca/volkswagen/' },
+  { name: 'Pilas llave Mercedes-Benz', url: '/marca/mercedes/' },
+  { name: 'Pilas llave Toyota', url: '/marca/toyota/' },
+  { name: 'Pilas llave Ford', url: '/marca/ford/' },
+  { name: 'Pilas llave BMW', url: '/marca/bmw/' },
+  { name: 'Pilas llave SEAT', url: '/marca/seat/' },
+  { name: 'Pilas llave Peugeot', url: '/marca/peugeot/' },
+  { name: 'Pilas llave Nissan', url: '/marca/nissan/' },
+];
+
+const comparePages = [
+  { name: 'CR2032 vs CR2025', url: '/comparar/cr2032-vs-cr2025/' },
+  { name: 'CR2016 vs CR2032', url: '/comparar/cr2016-vs-cr2032/' },
+  { name: 'CR2025 vs CR2016', url: '/comparar/cr2025-vs-cr2016/' },
+];
+
+const categoryPages = [
+  { name: 'Llaves de coche', url: '/categoria/blog/' },
+  { name: 'Audi', url: '/categoria/audi/' },
+  { name: 'Renault', url: '/categoria/renault/' },
+  { name: 'Volkswagen', url: '/categoria/volkswagen/' },
+  { name: 'Mercedes Benz', url: '/categoria/mercedes-benz/' },
+  { name: 'Digital', url: '/categoria/digital/' },
+  { name: 'Reloj', url: '/categoria/reloj/' },
+];
+
+const legalPages = [
+  { name: 'Aviso Legal', url: '/aviso-legal/' },
+  { name: 'Política de Cookies', url: '/politica-de-cookies/' },
+  { name: 'Política de Privacidad', url: '/politica-de-privacidad/' },
+];
+---
+
+<Base
+  title="Mapa del sitio - Cambiando de Pilas"
+  description="Mapa completo del sitio cambiandopilas.com con acceso a todas las guías, categorías, marcas y páginas."
+>
+  <div class="container" style="max-width:900px;padding:3rem 1.25rem">
+    <h1 style="font-size:2rem;font-weight:800;margin-bottom:2rem">Mapa del sitio</h1>
+
+    <section style="margin-bottom:2rem">
+      <h2 class="sitemap-h2">Páginas principales</h2>
+      <ul class="sitemap-list">
+        {mainPages.map(p => <li><a href={p.url}>{p.name}</a></li>)}
+      </ul>
+    </section>
+
+    <section style="margin-bottom:2rem">
+      <h2 class="sitemap-h2">Guías por marca de coche</h2>
+      <ul class="sitemap-list">
+        {brandPages.map(p => <li><a href={p.url}>{p.name}</a></li>)}
+      </ul>
+    </section>
+
+    <section style="margin-bottom:2rem">
+      <h2 class="sitemap-h2">Comparativas de pilas</h2>
+      <ul class="sitemap-list">
+        {comparePages.map(p => <li><a href={p.url}>{p.name}</a></li>)}
+      </ul>
+    </section>
+
+    <section style="margin-bottom:2rem">
+      <h2 class="sitemap-h2">Categorías</h2>
+      <ul class="sitemap-list">
+        {categoryPages.map(p => <li><a href={p.url}>{p.name}</a></li>)}
+      </ul>
+    </section>
+
+    <section style="margin-bottom:2rem">
+      <h2 class="sitemap-h2">Todos los artículos ({(postsData as any[]).length})</h2>
+      <ul class="sitemap-list sitemap-posts">
+        {(postsData as any[]).map((p: any) => (
+          <li><a href={`/${p.slug}/`}>{p.title}</a></li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="sitemap-h2">Legal</h2>
+      <ul class="sitemap-list">
+        {legalPages.map(p => <li><a href={p.url}>{p.name}</a></li>)}
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+.sitemap-h2 { font-size:1.2rem; font-weight:700; color:#1a1a2e; border-bottom:2px solid #f49600; padding-bottom:.4rem; margin-bottom:.85rem; }
+.sitemap-list { list-style:none; padding:0; column-count:2; column-gap:2rem; }
+@media(max-width:600px){ .sitemap-list { column-count:1; } }
+.sitemap-list li { padding:.2rem 0; font-size:.9rem; }
+.sitemap-list a { color:#0066cc; text-decoration:none; }
+.sitemap-list a:hover { text-decoration:underline; }
+.sitemap-posts { column-count:3; }
+@media(max-width:900px){ .sitemap-posts { column-count:2; } }
+@media(max-width:600px){ .sitemap-posts { column-count:1; } }
+</style>
