@@ -1,0 +1,187 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { generateBreadcrumbSchema, generateFAQSchema } from '../../utils/seo';
+
+type BatterySpec = {
+  type: string;
+  voltage: string;
+  diameter: string;
+  height: string;
+  capacity: string;
+  coches: string[];
+  amazon: string;
+};
+
+type CompareEntry = {
+  title: string;
+  description: string;
+  a: BatterySpec;
+  b: BatterySpec;
+  faqs: { question: string; answer: string }[];
+};
+
+const comparisons: Record<string, CompareEntry> = {
+  'cr2032-vs-cr2025': {
+    title: 'CR2032 vs CR2025: diferencias, compatibilidad y cuál elegir',
+    description: 'Comparativa completa entre la pila CR2032 y CR2025: diferencias de tamaño, capacidad, coches compatibles y cuándo usar cada una.',
+    a: {
+      type: 'CR2032',
+      voltage: '3V',
+      diameter: '20mm',
+      height: '3.2mm',
+      capacity: '220 mAh',
+      coches: ['Volkswagen', 'Audi', 'Toyota', 'Ford', 'SEAT', 'Nissan', 'BMW', 'Opel', 'Hyundai'],
+      amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21',
+    },
+    b: {
+      type: 'CR2025',
+      voltage: '3V',
+      diameter: '20mm',
+      height: '2.5mm',
+      capacity: '160 mAh',
+      coches: ['Renault', 'Mercedes-Benz', 'Citroën', 'Peugeot 508', 'Dacia'],
+      amazon: 'https://www.amazon.es/s?k=pila+cr2025&tag=enjoys0d-21',
+    },
+    faqs: [
+      { question: '¿Son intercambiables la CR2032 y CR2025?', answer: 'No son intercambiables aunque tengan el mismo diámetro (20mm) y voltaje (3V). La CR2032 mide 3.2mm de grosor y la CR2025 solo 2.5mm. Si fuerzas una CR2032 donde va una CR2025, el compartimento no cerrará bien y puede dañarse.' },
+      { question: '¿Qué pila dura más, CR2032 o CR2025?', answer: 'La CR2032 dura más: tiene 220 mAh frente a los 160 mAh de la CR2025, aproximadamente un 37% más de capacidad. En uso normal en llaves de coche, la CR2032 dura entre 3 y 5 años; la CR2025, entre 2 y 4 años.' },
+      { question: '¿Qué coches usan CR2032 y cuáles CR2025?', answer: 'CR2032: Volkswagen, Audi, Toyota, Ford, SEAT, Nissan, BMW, Opel, Hyundai. CR2025: Renault (modelos modernos), Mercedes-Benz (Clase A/C/E), Peugeot 508, Citroën. Siempre verifica en el interior de tu mando.' },
+    ],
+  },
+  'cr2016-vs-cr2032': {
+    title: 'CR2016 vs CR2032: diferencias y cuál usa tu coche',
+    description: 'Comparativa entre la pila CR2016 y CR2032: grosor, capacidad, coches compatibles y si son intercambiables.',
+    a: {
+      type: 'CR2016',
+      voltage: '3V',
+      diameter: '20mm',
+      height: '1.6mm',
+      capacity: '90 mAh',
+      coches: ['Honda Accord', 'Mazda 2 (algunos)', 'Toyota (modelos antiguos)'],
+      amazon: 'https://www.amazon.es/s?k=pila+cr2016&tag=enjoys0d-21',
+    },
+    b: {
+      type: 'CR2032',
+      voltage: '3V',
+      diameter: '20mm',
+      height: '3.2mm',
+      capacity: '220 mAh',
+      coches: ['Volkswagen', 'Audi', 'Toyota', 'Ford', 'BMW', 'Nissan', 'SEAT'],
+      amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21',
+    },
+    faqs: [
+      { question: '¿Son intercambiables CR2016 y CR2032?', answer: 'No. Aunque tienen el mismo diámetro de 20mm y voltaje de 3V, la CR2016 mide solo 1.6mm de grosor frente a los 3.2mm de la CR2032. Son incompatibles entre sí.' },
+      { question: '¿Qué coches usan pila CR2016?', answer: 'La CR2016 es menos común que la CR2032. Se usa en algunos modelos de Honda Accord, Mazda 2 antiguo, y ciertos Toyota de generaciones anteriores. Verifica el número impreso en tu pila actual.' },
+      { question: '¿La CR2016 dura menos que la CR2032?', answer: 'Sí. La CR2016 tiene solo 90 mAh frente a los 220 mAh de la CR2032, por lo que dura aproximadamente la mitad. En llaves de coche, la CR2016 suele durar entre 1 y 2 años.' },
+    ],
+  },
+  'cr2025-vs-cr2016': {
+    title: 'CR2025 vs CR2016: qué diferencia hay y cuál necesitas',
+    description: 'Comparativa entre CR2025 y CR2016: mismos 20mm de diámetro pero diferente grosor. Coches compatibles y diferencias de capacidad.',
+    a: {
+      type: 'CR2025',
+      voltage: '3V',
+      diameter: '20mm',
+      height: '2.5mm',
+      capacity: '160 mAh',
+      coches: ['Renault Clio III/IV', 'Mercedes Clase A/C/E', 'Citroën C3/C4', 'Peugeot 508'],
+      amazon: 'https://www.amazon.es/s?k=pila+cr2025&tag=enjoys0d-21',
+    },
+    b: {
+      type: 'CR2016',
+      voltage: '3V',
+      diameter: '20mm',
+      height: '1.6mm',
+      capacity: '90 mAh',
+      coches: ['Honda Accord', 'Mazda 2', 'Toyota antiguos'],
+      amazon: 'https://www.amazon.es/s?k=pila+cr2016&tag=enjoys0d-21',
+    },
+    faqs: [
+      { question: '¿Son intercambiables CR2025 y CR2016?', answer: 'No. Tienen el mismo diámetro (20mm) y voltaje (3V), pero diferente grosor: CR2025 mide 2.5mm y CR2016 mide 1.6mm. No son compatibles entre sí.' },
+      { question: '¿Qué pila tiene más capacidad, CR2025 o CR2016?', answer: 'La CR2025 tiene 160 mAh frente a los 90 mAh de la CR2016, casi el doble de capacidad. La CR2025 dura entre 2 y 4 años en una llave de coche; la CR2016, entre 1 y 2 años.' },
+    ],
+  },
+};
+
+export function getStaticPaths() {
+  return Object.keys(comparisons).map((slug) => ({
+    params: { slug },
+    props: { slug },
+  }));
+}
+
+const { slug } = Astro.props;
+const comp = comparisons[slug];
+const siteUrl = 'https://cambiandopilas.com';
+
+const breadcrumb = generateBreadcrumbSchema([
+  { name: 'Inicio', url: siteUrl },
+  { name: 'Comparar pilas', url: `${siteUrl}/comparar/${slug}/` },
+  { name: `${comp.a.type} vs ${comp.b.type}`, url: `${siteUrl}/comparar/${slug}/` },
+]);
+const faqSchema = generateFAQSchema(comp.faqs);
+---
+
+<Base
+  title={comp.title}
+  description={comp.description}
+  schema={[breadcrumb, faqSchema]}
+>
+  <div class="container">
+    <Breadcrumbs items={[
+      { name: 'Guía de Pilas', url: '/tipos-de-pilas/' },
+      { name: `${comp.a.type} vs ${comp.b.type}`, url: `/comparar/${slug}/` },
+    ]} />
+
+    <header class="article-header">
+      <h1>{comp.a.type} vs {comp.b.type}</h1>
+      <p style="color:#666">{comp.description}</p>
+    </header>
+
+    <div class="compare-grid">
+      {[comp.a, comp.b].map((bat) => (
+        <div class="compare-card">
+          <div class="compare-badge">{bat.type}</div>
+          <table class="compare-specs">
+            <tr><th>Voltaje</th><td>{bat.voltage}</td></tr>
+            <tr><th>Diámetro</th><td>{bat.diameter}</td></tr>
+            <tr><th>Grosor</th><td>{bat.height}</td></tr>
+            <tr><th>Capacidad</th><td>{bat.capacity}</td></tr>
+          </table>
+          <p style="margin:.75rem 0 .4rem;font-size:.85rem;color:#666;font-weight:600">Coches compatibles:</p>
+          <ul style="margin:0 0 1rem 1.25rem;font-size:.85rem;color:#444;line-height:1.9">
+            {bat.coches.map(c => <li>{c}</li>)}
+          </ul>
+          <a href={bat.amazon} target="_blank" rel="noopener noreferrer sponsored" class="cta-button" style="display:block;text-align:center">
+            Comprar {bat.type} en Amazon →
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <section class="faq-section" style="margin-top:2.5rem" aria-label="Preguntas frecuentes">
+      <h2 class="faq-heading">Preguntas frecuentes</h2>
+      {comp.faqs.map((faq, i) => (
+        <details class="faq-item" open={i === 0}>
+          <summary class="faq-question">{faq.question}</summary>
+          <div class="faq-answer"><p>{faq.answer}</p></div>
+        </details>
+      ))}
+    </section>
+
+    <div class="text-center mt-2 mb-2">
+      <a href="/tipos-de-pilas/" class="cta-button">Ver guía completa de tipos de pilas →</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+@media (max-width: 640px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare-card { border: 2px solid #e0e8f0; border-radius: 12px; padding: 1.5rem; }
+.compare-badge { font-family: monospace; font-size: 1.75rem; font-weight: 900; color: #fff; background: #0066cc; padding: .35rem 1rem; border-radius: 6px; display: inline-block; margin-bottom: 1rem; }
+.compare-specs { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: .9rem; }
+.compare-specs th { text-align: left; color: #666; font-weight: 600; padding: .3rem 0; width: 45%; }
+.compare-specs td { color: #1a1a2e; font-weight: 700; }
+</style>
