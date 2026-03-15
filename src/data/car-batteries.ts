@@ -170,6 +170,88 @@ export const carBatteries: CarBatteryEntry[] = [
   { marca: 'Volvo', marcaSlug: 'volvo', modelo: 'XC60', modeloSlug: 'xc60', pila: 'CR2450', anos: '2008–2024', notas: 'Llave avanzada', amazon: 'https://www.amazon.es/s?k=pila+cr2450&tag=enjoys0d-21' },
   { marca: 'Volvo', marcaSlug: 'volvo', modelo: 'XC90', modeloSlug: 'xc90', pila: 'CR2450', anos: '2002–2024', notas: 'Llave avanzada', amazon: 'https://www.amazon.es/s?k=pila+cr2450&tag=enjoys0d-21' },
   { marca: 'Volvo', marcaSlug: 'volvo', modelo: 'V90', modeloSlug: 'v90', pila: 'CR2032', anos: '2016–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // ALFA ROMEO
+  { marca: 'Alfa Romeo', marcaSlug: 'alfa-romeo', modelo: 'Giulia', modeloSlug: 'giulia', pila: 'CR2032', anos: '2016–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Alfa Romeo', marcaSlug: 'alfa-romeo', modelo: 'Stelvio', modeloSlug: 'stelvio', pila: 'CR2032', anos: '2017–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Alfa Romeo', marcaSlug: 'alfa-romeo', modelo: 'Tonale', modeloSlug: 'tonale', pila: 'CR2032', anos: '2022–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Alfa Romeo', marcaSlug: 'alfa-romeo', modelo: 'Giulietta', modeloSlug: 'giulietta', pila: 'CR2032', anos: '2010–2021', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Alfa Romeo', marcaSlug: 'alfa-romeo', modelo: 'MiTo', modeloSlug: 'mito', pila: 'CR2032', anos: '2008–2018', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // BYD
+  { marca: 'BYD', marcaSlug: 'byd', modelo: 'Atto 3', modeloSlug: 'atto-3', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'BYD', marcaSlug: 'byd', modelo: 'Han', modeloSlug: 'han', pila: 'CR2032', anos: '2020–2024', notas: 'Eléctrico/PHEV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'BYD', marcaSlug: 'byd', modelo: 'Seal', modeloSlug: 'seal', pila: 'CR2032', anos: '2023–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'BYD', marcaSlug: 'byd', modelo: 'Dolphin', modeloSlug: 'dolphin', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'BYD', marcaSlug: 'byd', modelo: 'Tang', modeloSlug: 'tang', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico/PHEV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'BYD', marcaSlug: 'byd', modelo: 'Sealion 6', modeloSlug: 'sealion-6', pila: 'CR2032', anos: '2024–', notas: 'PHEV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'BYD', marcaSlug: 'byd', modelo: 'Song Plus', modeloSlug: 'song-plus', pila: 'CR2032', anos: '2022–2024', notas: 'PHEV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // EBRO
+  { marca: 'Ebro', marcaSlug: 'ebro', modelo: 'S700', modeloSlug: 's700', pila: 'CR2032', anos: '2024–', notas: 'Eléctrico · Marca española relanzada con tecnología DFSK', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Ebro', marcaSlug: 'ebro', modelo: 'E-Truck', modeloSlug: 'e-truck', pila: 'CR2032', anos: '2025–', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // FIAT
+  { marca: 'Fiat', marcaSlug: 'fiat', modelo: '500 (2007–2019)', modeloSlug: '500-classic', pila: 'CR2032', anos: '2007–2019', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Fiat', marcaSlug: 'fiat', modelo: '500e (Eléctrico)', modeloSlug: '500e', pila: 'CR2032', anos: '2020–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Fiat', marcaSlug: 'fiat', modelo: 'Panda', modeloSlug: 'panda', pila: 'CR2032', anos: '2003–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Fiat', marcaSlug: 'fiat', modelo: 'Tipo', modeloSlug: 'tipo', pila: 'CR2032', anos: '2015–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Fiat', marcaSlug: 'fiat', modelo: '500X', modeloSlug: '500x', pila: 'CR2032', anos: '2014–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Fiat', marcaSlug: 'fiat', modelo: 'Ducato', modeloSlug: 'ducato', pila: 'CR2032', anos: '2006–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // GWM / ORA
+  { marca: 'GWM / Ora', marcaSlug: 'gwm-ora', modelo: 'Ora Funky Cat', modeloSlug: 'ora-funky-cat', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'GWM / Ora', marcaSlug: 'gwm-ora', modelo: 'Haval H6', modeloSlug: 'haval-h6', pila: 'CR2032', anos: '2022–2024', notas: 'PHEV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'GWM / Ora', marcaSlug: 'gwm-ora', modelo: 'Tank 300', modeloSlug: 'tank-300', pila: 'CR2032', anos: '2023–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // JEEP
+  { marca: 'Jeep', marcaSlug: 'jeep', modelo: 'Renegade', modeloSlug: 'renegade', pila: 'CR2032', anos: '2014–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Jeep', marcaSlug: 'jeep', modelo: 'Compass', modeloSlug: 'compass', pila: 'CR2032', anos: '2017–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Jeep', marcaSlug: 'jeep', modelo: 'Cherokee', modeloSlug: 'cherokee', pila: 'CR2032', anos: '2014–2023', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Jeep', marcaSlug: 'jeep', modelo: 'Grand Cherokee', modeloSlug: 'grand-cherokee', pila: 'CR2032', anos: '2011–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Jeep', marcaSlug: 'jeep', modelo: 'Wrangler', modeloSlug: 'wrangler', pila: 'CR2032', anos: '2007–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // LAND ROVER
+  { marca: 'Land Rover', marcaSlug: 'land-rover', modelo: 'Defender', modeloSlug: 'defender', pila: 'CR2032', anos: '2020–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Land Rover', marcaSlug: 'land-rover', modelo: 'Discovery Sport', modeloSlug: 'discovery-sport', pila: 'CR2032', anos: '2014–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Land Rover', marcaSlug: 'land-rover', modelo: 'Range Rover Evoque', modeloSlug: 'range-rover-evoque', pila: 'CR2032', anos: '2011–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Land Rover', marcaSlug: 'land-rover', modelo: 'Range Rover Sport', modeloSlug: 'range-rover-sport', pila: 'CR2032', anos: '2005–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Land Rover', marcaSlug: 'land-rover', modelo: 'Range Rover Velar', modeloSlug: 'range-rover-velar', pila: 'CR2032', anos: '2017–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Land Rover', marcaSlug: 'land-rover', modelo: 'Freelander 2', modeloSlug: 'freelander-2', pila: 'CR2032', anos: '2006–2014', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // LEAPMOTOR
+  { marca: 'Leapmotor', marcaSlug: 'leapmotor', modelo: 'T03', modeloSlug: 't03', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico · Distribuido por Stellantis en Europa', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Leapmotor', marcaSlug: 'leapmotor', modelo: 'C10', modeloSlug: 'c10', pila: 'CR2032', anos: '2024–', notas: 'Eléctrico/REEV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // LYNK & CO
+  { marca: 'Lynk & Co', marcaSlug: 'lynk-co', modelo: '01', modeloSlug: '01', pila: 'CR2032', anos: '2017–2024', notas: 'Plataforma Geely', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Lynk & Co', marcaSlug: 'lynk-co', modelo: '02', modeloSlug: '02', pila: 'CR2032', anos: '2018–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Lynk & Co', marcaSlug: 'lynk-co', modelo: '05', modeloSlug: '05', pila: 'CR2032', anos: '2020–2024', notas: 'PHEV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // MG (SAIC)
+  { marca: 'MG', marcaSlug: 'mg', modelo: 'MG4 Electric', modeloSlug: 'mg4', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'MG', marcaSlug: 'mg', modelo: 'MG ZS', modeloSlug: 'mg-zs', pila: 'CR2032', anos: '2017–2024', notas: 'Gasolina/EV', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'MG', marcaSlug: 'mg', modelo: 'MG5 Electric', modeloSlug: 'mg5', pila: 'CR2032', anos: '2021–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'MG', marcaSlug: 'mg', modelo: 'MG HS', modeloSlug: 'mg-hs', pila: 'CR2032', anos: '2019–2024', notas: 'PHEV disponible', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'MG', marcaSlug: 'mg', modelo: 'MG3', modeloSlug: 'mg3', pila: 'CR2032', anos: '2013–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'MG', marcaSlug: 'mg', modelo: 'Marvel R', modeloSlug: 'marvel-r', pila: 'CR2032', anos: '2021–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // MITSUBISHI
+  { marca: 'Mitsubishi', marcaSlug: 'mitsubishi', modelo: 'Outlander', modeloSlug: 'outlander', pila: 'CR2032', anos: '2003–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Mitsubishi', marcaSlug: 'mitsubishi', modelo: 'Eclipse Cross', modeloSlug: 'eclipse-cross', pila: 'CR2032', anos: '2017–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Mitsubishi', marcaSlug: 'mitsubishi', modelo: 'ASX', modeloSlug: 'asx', pila: 'CR2032', anos: '2010–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Mitsubishi', marcaSlug: 'mitsubishi', modelo: 'L200', modeloSlug: 'l200', pila: 'CR2032', anos: '2006–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Mitsubishi', marcaSlug: 'mitsubishi', modelo: 'Space Star', modeloSlug: 'space-star', pila: 'CR2032', anos: '2012–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // NIO
+  { marca: 'NIO', marcaSlug: 'nio', modelo: 'ET5', modeloSlug: 'et5', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'NIO', marcaSlug: 'nio', modelo: 'ET7', modeloSlug: 'et7', pila: 'CR2032', anos: '2021–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'NIO', marcaSlug: 'nio', modelo: 'ES6', modeloSlug: 'es6', pila: 'CR2032', anos: '2023–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'NIO', marcaSlug: 'nio', modelo: 'EC6', modeloSlug: 'ec6', pila: 'CR2032', anos: '2020–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // OMODA / CHERY
+  { marca: 'Omoda / Chery', marcaSlug: 'omoda', modelo: 'Omoda 5', modeloSlug: 'omoda-5', pila: 'CR2032', anos: '2023–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Omoda / Chery', marcaSlug: 'omoda', modelo: 'Omoda 5 EV', modeloSlug: 'omoda-5-ev', pila: 'CR2032', anos: '2024–', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Omoda / Chery', marcaSlug: 'omoda', modelo: 'Jaecoo 7', modeloSlug: 'jaecoo-7', pila: 'CR2032', anos: '2023–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Omoda / Chery', marcaSlug: 'omoda', modelo: 'Jaecoo 8', modeloSlug: 'jaecoo-8', pila: 'CR2032', anos: '2024–', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // SUZUKI
+  { marca: 'Suzuki', marcaSlug: 'suzuki', modelo: 'Swift', modeloSlug: 'swift', pila: 'CR2032', anos: '2004–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Suzuki', marcaSlug: 'suzuki', modelo: 'Vitara', modeloSlug: 'vitara', pila: 'CR2032', anos: '2015–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Suzuki', marcaSlug: 'suzuki', modelo: 'Jimny', modeloSlug: 'jimny', pila: 'CR2032', anos: '2018–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Suzuki', marcaSlug: 'suzuki', modelo: 'SX4 S-Cross', modeloSlug: 'sx4-s-cross', pila: 'CR2032', anos: '2013–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'Suzuki', marcaSlug: 'suzuki', modelo: 'Ignis', modeloSlug: 'ignis', pila: 'CR2032', anos: '2017–2024', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  // XPENG
+  { marca: 'XPeng', marcaSlug: 'xpeng', modelo: 'G3', modeloSlug: 'g3', pila: 'CR2032', anos: '2018–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'XPeng', marcaSlug: 'xpeng', modelo: 'P5', modeloSlug: 'p5', pila: 'CR2032', anos: '2021–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'XPeng', marcaSlug: 'xpeng', modelo: 'P7', modeloSlug: 'p7', pila: 'CR2032', anos: '2020–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
+  { marca: 'XPeng', marcaSlug: 'xpeng', modelo: 'G9', modeloSlug: 'g9', pila: 'CR2032', anos: '2022–2024', notas: 'Eléctrico', amazon: 'https://www.amazon.es/s?k=pila+cr2032&tag=enjoys0d-21' },
 ];
 
 // Helper: get unique brand slugs
