@@ -105,7 +105,7 @@ const comparisons: Record<string, CompareEntry> = {
 };
 
 export function getStaticPaths() {
-  return Object.keys(comparisons).map((slug) => ({
+  return ['cr2032-vs-cr2025', 'cr2016-vs-cr2032', 'cr2025-vs-cr2016'].map((slug) => ({
     params: { slug },
     props: { slug },
   }));
