@@ -646,7 +646,7 @@ const faqSchema = generateFAQSchema(def.faqs);
       <h2 class="faq-heading">Preguntas frecuentes sobre pilas {def.name}</h2>
       {def.faqs.map((faq, i) => (
         <details class="faq-item" open={i === 0}>
-          <summary class="faq-question">¿{faq.question}?</summary>
+          <summary class="faq-question">{faq.question}</summary>
           <div class="faq-answer"><p>{faq.answer}</p></div>
         </details>
       ))}
